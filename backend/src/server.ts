@@ -7,6 +7,7 @@ import { corsOptions } from './config/cors';
 import logger from 'jet-logger';
 import UserController from './controller/user.controller';
 import customServer from 'express-promise-router';
+import mongoose from 'mongoose';
 
 export class ServerApp extends Server {
   private readonly STARTED_MSG = 'Server APC running on port: ';
@@ -43,6 +44,11 @@ export class ServerApp extends Server {
     // signupController.setDbConn(dbConnObj);
 
     super.addControllers(userController, customServer);
+  }
+
+  public async initConnectionDB(connStr: string): Promise<void> {
+    const db = await mongoose.connect(connStr);
+    console.log('Data base is connect: ' + db.connection.name);
   }
 
   public getApp(): Application {
