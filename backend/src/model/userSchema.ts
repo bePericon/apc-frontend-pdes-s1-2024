@@ -6,27 +6,16 @@ var email_match = [
   'Coloca un email válido',
 ];
 
-interface IUser {
+export type TUser = {
   name: string;
   surname: string;
   username: string;
   password: string;
   email: string;
   createdDate?: Date;
-}
+};
 
-interface UserDoc extends mongoose.Document {
-  name: string;
-  surname: string;
-  username: string;
-  password: string;
-  email: string;
-  createdDate?: Date;
-}
-
-interface UserModel extends mongoose.Model<IUser> {
-  build(attr: IUser): UserDoc;
-}
+export interface IUser extends TUser, mongoose.Document {}
 
 const userSchema = new mongoose.Schema(
   {
@@ -47,28 +36,21 @@ const userSchema = new mongoose.Schema(
     },
     password: {
       type: String,
-      require: true,
+      require: [true, 'Password is a required field'],
       minlength: [8, 'El password es my corto'],
     },
     email: {
       type: String,
       require: [true, 'Email is a required field'],
-      // match: email_match,
+      match: email_match,
     },
     createdDate: {
       type: Date,
       default: Date.now,
     },
-  },
-  {
-    bufferCommands: false,
   }
 );
 
-userSchema.statics.build = (attr: IUser) => {
-  return new User(attr);
-};
+const User = mongoose.model<IUser>('user', userSchema);
 
-const User: UserModel = mongoose.model<UserDoc, UserModel>('user', userSchema);
-
-export { User };
+export default User;

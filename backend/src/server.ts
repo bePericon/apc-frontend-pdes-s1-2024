@@ -8,6 +8,7 @@ import logger from 'jet-logger';
 import UserController from './controller/user.controller';
 import customServer from 'express-promise-router';
 import mongoose from 'mongoose';
+import config from './config/config';
 
 export class ServerApp extends Server {
   private readonly STARTED_MSG = 'Server APC running on port: ';
@@ -22,6 +23,8 @@ export class ServerApp extends Server {
 
     // TODO: Adding middleware for error catch
     // this.app.use(errorMiddleware);
+
+    this.initConnectionDB();
   }
 
   private morganJsonFormat(
@@ -46,13 +49,10 @@ export class ServerApp extends Server {
     super.addControllers(userController, customServer);
   }
 
-  public async initConnectionDB(connStr: string): Promise<void> {
-    const db = await mongoose.connect(connStr);
+  private async initConnectionDB(): Promise<void> {
+    const CONN_STR = config.db_connection_string as string;
+    const db = await mongoose.connect(CONN_STR);
     console.log('Data base is connect: ' + db.connection.name);
-  }
-
-  public getApp(): Application {
-    return this.app;
   }
 
   public start(port: number) {

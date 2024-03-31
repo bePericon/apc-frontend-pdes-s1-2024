@@ -2,9 +2,10 @@ import { StatusCodes } from 'http-status-codes';
 import { Controller, Get, Post, Put, Delete, Middleware } from '@overnightjs/core';
 import { Request, Response } from 'express';
 import Logger from 'jet-logger';
-import { User } from '../model/userSchema';
+import User from '../model/userSchema';
+import userMiddleware from '../middleware/user.middleware';
 
-@Controller('api/users')
+@Controller('api/user')
 export default class UserController {
   @Get(':id')
   private get(req: Request, res: Response) {
@@ -23,12 +24,12 @@ export default class UserController {
   }
 
   @Post('')
-  // @Middleware()
+  @Middleware(userMiddleware)
   private async add(req: Request, res: Response) {
-    Logger.info(req.body, true);
-
     try {
-      const user = User.build({
+      Logger.info(req.body, true);
+
+      const user = new User({
         name: req.body.name,
         surname: req.body.surname,
         username: req.body.username,
@@ -43,6 +44,7 @@ export default class UserController {
         result: user,
       });
     } catch (error: any) {
+
       if (error.name === 'ValidationError') {
         let errors: any = {};
 
@@ -50,9 +52,18 @@ export default class UserController {
           errors[key] = error.errors[key].message;
         });
 
-        return res.status(400).send(errors);
+        return res.status(400).send({
+          message: 'Something went wrong',
+          result: {},
+          error: errors,
+        });
       }
-      res.status(500).send('Something went wrong');
+
+      res.status(500).send({
+        message: 'Something went wrong',
+        result: {},
+        error,
+      });
     }
   }
 
