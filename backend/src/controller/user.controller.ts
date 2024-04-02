@@ -16,10 +16,13 @@ export default class UserController {
   }
 
   @Get('')
-  private getAll(req: Request, res: Response) {
+  private async getAll(req: Request, res: Response) {
     Logger.info(req.body, true);
+
+    const users = await User.find({});
     return res.status(StatusCodes.OK).json({
       message: 'get_all_called',
+      result: users,
     });
   }
 
@@ -44,7 +47,6 @@ export default class UserController {
         result: user,
       });
     } catch (error: any) {
-
       if (error.name === 'ValidationError') {
         let errors: any = {};
 
