@@ -3,16 +3,32 @@ import { Controller, Get, Post, Put, Delete, Middleware } from '@overnightjs/cor
 import { Request, Response } from 'express';
 import Logger from 'jet-logger';
 import User from '../model/userSchema';
-import userMiddleware from '../middleware/user.middleware';
+import ApiResponse from '../class/ApiResponse';
+import mongoose from 'mongoose';
+import userValidationMiddleware from '../middleware/userValidation.middleware';
 
 @Controller('api/user')
 export default class UserController {
   @Get(':id')
-  private get(req: Request, res: Response) {
+  private async get(req: Request, res: Response) {
     Logger.info(req.params.id);
-    return res.status(StatusCodes.OK).json({
-      message: 'get_called',
-    });
+
+    if (mongoose.Types.ObjectId.isValid(req.params.id)) {
+      const user = await User.findById(req.params.id);
+      if (!user) {
+        return res
+          .status(StatusCodes.NOT_FOUND)
+          .json(new ApiResponse('Usuario no encontrado', StatusCodes.NOT_FOUND, user));
+      }
+
+      return res
+        .status(StatusCodes.OK)
+        .json(new ApiResponse('Usuario encontrado', StatusCodes.OK, user));
+    }
+
+    return res
+      .status(StatusCodes.BAD_REQUEST)
+      .json(new ApiResponse('Formato de Id incorrecto', StatusCodes.BAD_REQUEST, null));
   }
 
   @Get('')
@@ -20,68 +36,67 @@ export default class UserController {
     Logger.info(req.body, true);
 
     const users = await User.find({});
-    return res.status(StatusCodes.OK).json({
-      message: 'get_all_called',
-      result: users,
-    });
+    return res
+      .status(StatusCodes.OK)
+      .json(new ApiResponse('Usuarios encontrados', StatusCodes.OK, users));
   }
 
   @Post('')
-  @Middleware(userMiddleware)
+  @Middleware(userValidationMiddleware)
   private async add(req: Request, res: Response) {
-    try {
-      Logger.info(req.body, true);
+    Logger.info(req.body, true);
 
-      const user = new User({
+    const user = new User({
+      name: req.body.name,
+      surname: req.body.surname,
+      username: req.body.username,
+      email: req.body.email,
+      password: req.body.password,
+    });
+
+    await user.save();
+
+    return res
+      .status(StatusCodes.CREATED)
+      .json(new ApiResponse('Usuario creado', StatusCodes.CREATED, user));
+  }
+
+  @Put('update/:id')
+  @Middleware(userValidationMiddleware)
+  private async update(req: Request, res: Response) {
+    Logger.info(req.body);
+
+    if (mongoose.Types.ObjectId.isValid(req.params.id)) {
+      const user = {
         name: req.body.name,
         surname: req.body.surname,
         username: req.body.username,
-        email: req.body.email,
         password: req.body.password,
-      });
-
-      await user.save();
-
-      return res.status(StatusCodes.OK).json({
-        message: 'add_called',
-        result: user,
-      });
-    } catch (error: any) {
-      if (error.name === 'ValidationError') {
-        let errors: any = {};
-
-        Object.keys(error.errors).forEach((key: any) => {
-          errors[key] = error.errors[key].message;
-        });
-
-        return res.status(400).send({
-          message: 'Something went wrong',
-          result: {},
-          error: errors,
-        });
-      }
-
-      res.status(500).send({
-        message: 'Something went wrong',
-        result: {},
-        error,
-      });
+        email: req.body.email,
+      };
+      await User.findByIdAndUpdate(req.params.id, { $set: user }, { new: true });
+      return res
+        .status(StatusCodes.OK)
+        .json(new ApiResponse('Usuario actualizado', StatusCodes.OK, user));
     }
-  }
 
-  @Put('update-user')
-  private update(req: Request, res: Response) {
-    Logger.info(req.body);
-    return res.status(StatusCodes.OK).json({
-      message: 'update_called',
-    });
+    return res
+      .status(StatusCodes.BAD_REQUEST)
+      .json(new ApiResponse('Formato de Id incorrecto', StatusCodes.BAD_REQUEST, null));
   }
 
   @Delete('delete/:id')
-  private delete(req: Request, res: Response) {
+  private async delete(req: Request, res: Response) {
     Logger.info(req.params, true);
-    return res.status(StatusCodes.OK).json({
-      message: 'delete_called',
-    });
+    if (mongoose.Types.ObjectId.isValid(req.params.id)) {
+      await User.findByIdAndDelete(req.params.id);
+      return res
+        .status(StatusCodes.OK)
+        .json(new ApiResponse('Usuario eliminado', StatusCodes.OK, null));
+    }
+
+    return res
+      .status(StatusCodes.BAD_REQUEST)
+      .json(new ApiResponse('Formato de Id incorrecto', StatusCodes.BAD_REQUEST, null));
   }
 }

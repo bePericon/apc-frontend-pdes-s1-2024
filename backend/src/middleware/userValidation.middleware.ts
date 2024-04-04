@@ -1,6 +1,9 @@
 import { NextFunction, Request, Response } from 'express';
 import { checkSchema } from 'express-validator';
-const userMiddleware = async (req: Request, res: Response, next: NextFunction) => {
+import { StatusCodes } from 'http-status-codes';
+import ApiResponse from '../class/ApiResponse';
+
+const userValidationMiddleware = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const check = await checkSchema(
       {
@@ -20,20 +23,22 @@ const userMiddleware = async (req: Request, res: Response, next: NextFunction) =
     const result = formatResult(check);
 
     if (result.length > 0) {
-      return res.status(400).send({
-        message: 'Validation error',
-        result: {},
-        error: result,
-      });
+      return res
+        .status(StatusCodes.BAD_REQUEST)
+        .send(new ApiResponse('Error en la validación', StatusCodes.BAD_REQUEST, null, result));
     }
 
     next();
   } catch (error: any) {
-    res.status(500).send('Something went wrong');
+    return res
+      .status(StatusCodes.INTERNAL_SERVER_ERROR)
+      .send(
+        new ApiResponse('Error en el servidor', StatusCodes.INTERNAL_SERVER_ERROR, null)
+      );
   }
 };
 
-export default userMiddleware;
+export default userValidationMiddleware;
 
 const formatResult = (result: any[]) => {
   return result

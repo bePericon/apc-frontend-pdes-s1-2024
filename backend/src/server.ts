@@ -1,4 +1,4 @@
-import express, { Application } from 'express';
+import express from 'express';
 import { Server } from '@overnightjs/core';
 import morgan, { TokenIndexer } from 'morgan';
 import cors from 'cors';
@@ -9,6 +9,7 @@ import UserController from './controller/user.controller';
 import customServer from 'express-promise-router';
 import mongoose from 'mongoose';
 import config from './config/config';
+import errorMiddleware from './middleware/error.middleware';
 
 export class ServerApp extends Server {
   private readonly STARTED_MSG = 'Server APC running on port: ';
@@ -21,8 +22,7 @@ export class ServerApp extends Server {
     this.app.use(cors(corsOptions));
     this.setupControllers();
 
-    // TODO: Adding middleware for error catch
-    // this.app.use(errorMiddleware);
+    this.app.use(errorMiddleware);
 
     this.initConnectionDB();
   }
