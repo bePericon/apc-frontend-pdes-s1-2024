@@ -7,9 +7,9 @@
 
   --background: #FAF0CA;
 
-  --primary-glow: #F4D35E;
-    
-  --secondary-glow: #EE964B;
+  --primary-glow: #f4d35e;
+
+  --secondary-glow: #ee964b;
 }
 
 /* @media (prefers-color-scheme: dark) {
@@ -46,9 +46,3 @@ a {
   color: inherit;
   text-decoration: none;
 }
-
-/* @media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
-  }
-} */
