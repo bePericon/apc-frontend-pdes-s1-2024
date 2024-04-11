@@ -8,7 +8,7 @@ Using latest versions for all technologies (March 2024)
 
 ### Backend
 
-- Nodejs 20.12
+- Nodejs 18.17.0
 - Typescript 5.4
 - Express 4.19
 - Jest 29.7
@@ -17,10 +17,12 @@ Using latest versions for all technologies (March 2024)
 
 ### Frontend
 
+- Nodejs 18.17.0
 - Next 14.1
 - React 18
 - Redux 9.1
 - Styled components 6.1
+- Material UI 5.15
 - Jest 29.7
 
 ## Develop environment
