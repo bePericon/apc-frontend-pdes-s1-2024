@@ -6,6 +6,7 @@ import User from '../model/userSchema';
 import ApiResponse from '../class/ApiResponse';
 import mongoose from 'mongoose';
 import userValidationMiddleware from '../middleware/userValidation.middleware';
+import { genSaltSync, hashSync } from 'bcrypt';
 
 @Controller('api/user')
 export default class UserController {
@@ -46,12 +47,13 @@ export default class UserController {
   private async add(req: Request, res: Response) {
     Logger.info(req.body, true);
 
+    const salt = genSaltSync(10);
     const user = new User({
       name: req.body.name,
       surname: req.body.surname,
       username: req.body.username,
       email: req.body.email,
-      password: req.body.password,
+      password: hashSync(req.body.password, salt),
     });
 
     await user.save();

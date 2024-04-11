@@ -10,6 +10,7 @@ import customServer from 'express-promise-router';
 import mongoose from 'mongoose';
 import config from './config/config';
 import errorMiddleware from './middleware/error.middleware';
+import AuthController from './controller/auth.controller';
 
 export class ServerApp extends Server {
   private readonly STARTED_MSG = 'Server APC running on port: ';
@@ -44,9 +45,9 @@ export class ServerApp extends Server {
 
   private setupControllers(): void {
     const userController = new UserController();
-    // signupController.setDbConn(dbConnObj);
+    const authController = new AuthController();
 
-    super.addControllers(userController, customServer);
+    super.addControllers([userController, authController], customServer);
   }
 
   private async initConnectionDB(): Promise<void> {
