@@ -12,6 +12,7 @@ import config from './config/config';
 import errorMiddleware from './middleware/error.middleware';
 import AuthController from './controller/auth.controller';
 import cookieParser from 'cookie-parser';
+import MeliController from './controller/meli.controller';
 
 export class ServerApp extends Server {
   private readonly STARTED_MSG = 'Server APC running on port: ';
@@ -48,8 +49,9 @@ export class ServerApp extends Server {
   private setupControllers(): void {
     const userController = new UserController();
     const authController = new AuthController();
+    const meliController = new MeliController()
 
-    super.addControllers([userController, authController], customServer);
+    super.addControllers([userController, authController, meliController], customServer);
   }
 
   private async initConnectionDB(): Promise<void> {
