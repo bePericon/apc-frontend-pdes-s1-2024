@@ -20,6 +20,6 @@ export const StyledForm = styled.div`
     text-align: center;
     padding: 32px;
     border-radius: 16px;
-    border: 1px solid #1976d2;
+    border: 1px solid #0D3B66;
     background: white;
 `

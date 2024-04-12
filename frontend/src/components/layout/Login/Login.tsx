@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import {
   Button,
   FormControl,
@@ -14,7 +14,7 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { useState } from "react";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { useDispatch } from "react-redux";
-import  LoginService from "@/service/login.service";
+import LoginService from "@/service/login.service";
 import { loginSuccess } from "@/redux/slice/authSlice";
 import { useRouter } from "next/navigation";
 
@@ -38,8 +38,11 @@ const Login = () => {
   const onSubmit: SubmitHandler<InputsLogin> = async (data) => {
     await LoginService.signIn(data);
     let loginUserData = JSON.parse(localStorage.getItem("loginUserData"));
-    dispatch(loginSuccess(loginUserData));
-    router.push("/apc")
+
+    if (loginUserData) {
+      dispatch(loginSuccess(loginUserData));
+      router.push("/apc");
+    }
   };
 
   return (
@@ -58,9 +61,6 @@ const Login = () => {
             {...register("email", {
               pattern: /[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/,
             })}
-            // sx={{
-            //   backgroundColor: "white",
-            // }}
           />
           {errors.email?.type === "pattern" && (
             <FormHelperText>Formato de email incorrecto</FormHelperText>
@@ -85,9 +85,6 @@ const Login = () => {
             }
             label="Password"
             {...register("password", { maxLength: 8 })}
-            // sx={{
-            //   backgroundColor: "white",
-            // }}
           />
 
           {errors.password?.type === "maxLength" && (
@@ -95,7 +92,16 @@ const Login = () => {
           )}
         </FormControl>
 
-        <Button variant="contained" onClick={handleSubmit(onSubmit)} disabled={!isDirty || !isValid}>
+        <Button
+          variant="contained"
+          onClick={handleSubmit(onSubmit)}
+          disabled={!isDirty || !isValid}
+          sx={{
+            "&:hover": {
+              backgroundColor: "#0D3B66"
+            }
+          }}
+        >
           Iniciar sesión
         </Button>
       </StyledForm>
