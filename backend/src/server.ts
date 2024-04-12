@@ -11,6 +11,7 @@ import mongoose from 'mongoose';
 import config from './config/config';
 import errorMiddleware from './middleware/error.middleware';
 import AuthController from './controller/auth.controller';
+import cookieParser from 'cookie-parser';
 
 export class ServerApp extends Server {
   private readonly STARTED_MSG = 'Server APC running on port: ';
@@ -21,6 +22,7 @@ export class ServerApp extends Server {
     this.app.use(express.urlencoded({ extended: true }));
     this.app.use(morgan(this.morganJsonFormat));
     this.app.use(cors(corsOptions));
+    this.app.use(cookieParser());
     this.setupControllers();
 
     this.app.use(errorMiddleware);

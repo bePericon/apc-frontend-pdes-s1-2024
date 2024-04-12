@@ -1,5 +1,5 @@
 import { StatusCodes } from 'http-status-codes';
-import { Controller, Get, Post, Put, Delete, Middleware } from '@overnightjs/core';
+import { Controller, Get, Post, Put, Delete, Middleware, ClassMiddleware } from '@overnightjs/core';
 import { Request, Response } from 'express';
 import Logger from 'jet-logger';
 import User from '../model/userSchema';
@@ -7,8 +7,10 @@ import ApiResponse from '../class/ApiResponse';
 import mongoose from 'mongoose';
 import userValidationMiddleware from '../middleware/userValidation.middleware';
 import { genSaltSync, hashSync } from 'bcrypt';
+import authMiddleware from '../middleware/auth.middleware';
 
 @Controller('api/user')
+@ClassMiddleware(authMiddleware)
 export default class UserController {
   @Get(':id')
   private async get(req: Request, res: Response) {
