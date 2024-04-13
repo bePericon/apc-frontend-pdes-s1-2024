@@ -30,13 +30,18 @@ export default class AuthController {
     }
 
     const accessToken = await this.refreshAccessToken();
-    res.cookie('access_token', accessToken, { maxAge: 60000 * 60 * 4 }); // 4 hours
-    // res.cookie('access_token', accessToken, { maxAge: 10000 }); // 10 seconds
 
-
-    return res
-      .status(StatusCodes.OK)
-      .json(new ApiResponse('Se ha iniciado sesión correctamente', StatusCodes.OK, user));
+    return (
+      res
+        .status(StatusCodes.OK)
+        //.cookie('access_token', accessToken, { maxAge: 10000 }); // 10 seconds
+        .cookie('access_token', accessToken, {
+          maxAge: 60000 * 60 * 4, // 4 hours
+        })
+        .json(
+          new ApiResponse('Se ha iniciado sesión correctamente', StatusCodes.OK, user)
+        )
+    );
   }
 
   private async refreshAccessToken() {

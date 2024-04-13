@@ -17,9 +17,10 @@ export const corsOptions: CorsOptions = {
     }
     return callback(null, true);
   },
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS', 'HEAD', 'PATCH'],
   allowedHeaders: [
     'Cookie',
+    'Cookies',
     'Authorization',
     'Origin',
     'X-Requested-With',

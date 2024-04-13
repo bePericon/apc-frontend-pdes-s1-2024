@@ -8,7 +8,7 @@ import { objectToUrlParams } from '../utils/misc';
 import authMiddleware from '../middleware/auth.middleware';
 
 @Controller('api/meli')
-// @ClassMiddleware(authMiddleware)
+@ClassMiddleware(authMiddleware)
 export default class MeliController {
   @Get('search')
   private async login(req: Request, res: Response) {

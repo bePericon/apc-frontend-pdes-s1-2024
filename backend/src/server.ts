@@ -24,8 +24,12 @@ export class ServerApp extends Server {
     this.app.use(express.json());
     this.app.use(express.urlencoded({ extended: true }));
     this.app.use(morgan(this.morganJsonFormat));
-    this.app.use(cors(corsOptions));
     this.app.use(cookieParser());
+    this.app.use(cors(corsOptions));
+    this.app.use((req, res, next) => {
+      res.header('Access-Control-Allow-Credentials', 'true');
+      next();
+    });
     this.setupControllers();
 
     this.app.use(errorMiddleware);
