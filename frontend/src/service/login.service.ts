@@ -12,10 +12,11 @@ class LoginService extends HTTPService {
     try {
       const loginUserData = await this.instance.post(
         `${process.env.NEXT_PUBLIC_API_URL_BASE}/auth/login`,
-        loginData
+        loginData, { withCredentials: true }
       );
 
       let { status, data } = loginUserData.data;
+      console.log("🚀 ~ LoginService ~ signIn ~ cookies, cookie:", loginUserData.headers)
 
       store.dispatch(showSnackbar({ message: status, severity: "success" }));
 

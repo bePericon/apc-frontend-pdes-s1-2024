@@ -8,13 +8,17 @@ const useSearch = () => {
   const [hiddenNoResults, setHiddenNoResults] = useState(true);
 
   const fetchArticles = async (value: string | string[] | undefined) => {
-    const { data: response } = await axios.get(`${process.env.NEXT_PUBLIC_API_URL_BASE}/meli/search`, {
-      params: {
-        q: value,
-        offset: 0,
-        limit: 10
-      },
-    });
+    const { data: response } = await axios.get(
+      `${process.env.NEXT_PUBLIC_API_URL_BASE}/meli/search`,
+      {
+        params: {
+          q: value,
+          offset: 0,
+          limit: 10,
+        },
+        withCredentials: true
+      }
+    );
     if (response.data?.results.length !== 0) {
       setResults(response.data.results);
       setHasResults(true);
