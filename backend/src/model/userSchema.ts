@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import { IRole } from './roleSchema';
 
 //Validation for mail.
 var email_match = [
@@ -13,43 +14,48 @@ export type TUser = {
   password: string;
   email: string;
   createdDate?: Date;
+  roles: IRole[];
 };
 
 export interface IUser extends TUser, mongoose.Document {}
 
-const userSchema = new mongoose.Schema(
-  {
-    name: {
-      type: String,
-      require: true,
-      maxlength: [30, 'Nombre muy largo'],
+const userSchema = new mongoose.Schema({
+  name: {
+    type: String,
+    require: true,
+    maxlength: [30, 'Nombre muy largo'],
+  },
+  surname: {
+    type: String,
+    require: true,
+    maxlength: [15, 'Apellido muy largo'],
+  },
+  username: {
+    type: String,
+    require: true,
+    maxlength: [10, 'Username muy largo'],
+  },
+  password: {
+    type: String,
+    require: [true, 'Password is a required field'],
+    minlength: [8, 'El password es my corto'],
+  },
+  email: {
+    type: String,
+    require: [true, 'Email is a required field'],
+    match: email_match,
+  },
+  createdDate: {
+    type: Date,
+    default: Date.now,
+  },
+  roles: [
+    {
+      type: mongoose.Schema.ObjectId,
+      ref: 'role',
     },
-    surname: {
-      type: String,
-      require: true,
-      maxlength: [15, 'Apellido muy largo'],
-    },
-    username: {
-      type: String,
-      require: true,
-      maxlength: [10, 'Username muy largo'],
-    },
-    password: {
-      type: String,
-      require: [true, 'Password is a required field'],
-      minlength: [8, 'El password es my corto'],
-    },
-    email: {
-      type: String,
-      require: [true, 'Email is a required field'],
-      match: email_match,
-    },
-    createdDate: {
-      type: Date,
-      default: Date.now,
-    },
-  }
-);
+  ],
+});
 
 const User = mongoose.model<IUser>('user', userSchema);
 

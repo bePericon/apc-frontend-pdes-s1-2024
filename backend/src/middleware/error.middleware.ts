@@ -28,7 +28,7 @@ const errorMiddleware = (
 
   return res
     .status(statusCode)
-    .send(new ApiResponse('Error en el servidor', statusCode, null));
+    .send(new ApiResponse('Error en el servidor', statusCode, err));
 };
 
 export default errorMiddleware;

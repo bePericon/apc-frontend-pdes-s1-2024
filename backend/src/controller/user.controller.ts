@@ -1,5 +1,13 @@
 import { StatusCodes } from 'http-status-codes';
-import { Controller, Get, Post, Put, Delete, Middleware, ClassMiddleware } from '@overnightjs/core';
+import {
+  Controller,
+  Get,
+  Post,
+  Put,
+  Delete,
+  Middleware,
+  ClassMiddleware,
+} from '@overnightjs/core';
 import { Request, Response } from 'express';
 import Logger from 'jet-logger';
 import User from '../model/userSchema';
@@ -8,6 +16,7 @@ import mongoose from 'mongoose';
 import userValidationMiddleware from '../middleware/userValidation.middleware';
 import { genSaltSync, hashSync } from 'bcrypt';
 import authMiddleware from '../middleware/auth.middleware';
+import Role from '../model/roleSchema';
 
 @Controller('api/user')
 @ClassMiddleware(authMiddleware)
@@ -17,7 +26,15 @@ export default class UserController {
     Logger.info(req.params.id);
 
     if (mongoose.Types.ObjectId.isValid(req.params.id)) {
-      const user = await User.findById(req.params.id);
+      const user = await User.findById(req.params.id).populate({
+        path: 'roles',
+        populate: [
+          {
+            path: 'permissions',
+          },
+        ],
+      });
+
       if (!user) {
         return res
           .status(StatusCodes.NOT_FOUND)
@@ -38,7 +55,14 @@ export default class UserController {
   private async getAll(req: Request, res: Response) {
     Logger.info(req.body, true);
 
-    const users = await User.find({});
+    const users = await User.find({}).populate({
+      path: 'roles',
+      populate: [
+        {
+          path: 'permissions',
+        },
+      ],
+    });
     return res
       .status(StatusCodes.OK)
       .json(new ApiResponse('Usuarios encontrados', StatusCodes.OK, users));
@@ -57,6 +81,11 @@ export default class UserController {
       email: req.body.email,
       password: hashSync(req.body.password, salt),
     });
+
+    for (let roleId of req.body.roles) {
+      const role = await Role.findById(roleId);
+      user.roles.push(role?._id);
+    }
 
     await user.save();
 
