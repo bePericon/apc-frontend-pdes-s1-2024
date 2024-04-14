@@ -75,6 +75,9 @@ export default class AuthController {
     const accessToken = await this.refreshAccessToken();
     return res
       .status(StatusCodes.OK)
+      .cookie('access_token', accessToken, {
+        maxAge: 60000 * 60 * 4, // 4 hours
+      })
       .json(
         new ApiResponse(
           'Se refresco el access_token exitosamente',

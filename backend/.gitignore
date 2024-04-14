@@ -4,6 +4,7 @@
 
 .vscode
 .idea
+.npm
 
 # testing
 /coverage
@@ -30,3 +31,6 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 
+#Mongo
+/db_data
+.ash_history
