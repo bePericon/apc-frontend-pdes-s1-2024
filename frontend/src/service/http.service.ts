@@ -28,9 +28,8 @@ export abstract class HTTPService {
     }, this.handleError);
   };
 
-  private handleError = async (error: AxiosError) => {
+  private handleError = async (error: any) => {
     const e = { ...error }
-    console.log("🚀 ~ HTTPService ~ handleError= ~ error:", e.code)
     if (error.message === "Network Error" && !error.response) {
       store.dispatch(
         showSnackbar({

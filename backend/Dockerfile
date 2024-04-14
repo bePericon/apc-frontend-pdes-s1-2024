@@ -6,9 +6,6 @@ LABEL "cl.apgca.appNode"="APC"
 LABEL maintainer="brianpericon.e92@gmail.com"
 LABEL version="0.1"
 
-#Create a work directory
-RUN mkdir -p $HOME
-
 #Setting enviroment variables
 ENV HOME=/opt/app 
 ENV PORT=8080
@@ -18,6 +15,7 @@ WORKDIR $HOME
 
 #Install dependencies from package.json
 COPY package.json $HOME
+COPY package-lock.json $HOME
 RUN npm install --quiet
 
 #Install globally nodemon to watch changes on realtime

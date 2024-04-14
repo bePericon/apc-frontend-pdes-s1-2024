@@ -1,0 +1,22 @@
+#Base image: nodejs - version: 
+FROM node:18.20-alpine
+
+#Setting enviroment variables
+ENV HOME=/opt/app
+ENV PORT=3000
+
+#Setting work directory
+WORKDIR $HOME
+
+# Install
+COPY package.json $HOME
+RUN npm install --quiet
+
+#Copy app
+COPY . $HOME
+
+#Expose port 8080
+EXPOSE $PORT
+
+#Start app
+CMD npm run dev

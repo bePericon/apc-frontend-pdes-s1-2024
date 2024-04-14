@@ -1,7 +1,7 @@
 import { StyledContainerSearch, StyledContainerSection, StyledHomeContainer } from "./Home.styled";
 import InputSearch from "@/components/common/InputSearch/InputSearch";
 import useSearch from "@/hook/useSearch";
-import { SyntheticEvent, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import debounce from "lodash.debounce";
 
 const Home = () => {
@@ -23,7 +23,7 @@ const Home = () => {
     }, 215)
   ).current;
 
-  const handleOnChange = async (event: SyntheticEvent) => {
+  const handleOnChange = async (event: any) => {
     const { target } = event;
     setInputValue(target.value);
     if (target.value.length >= 3) {

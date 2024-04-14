@@ -37,7 +37,7 @@ const Login = () => {
 
   const onSubmit: SubmitHandler<InputsLogin> = async (data) => {
     await LoginService.signIn(data);
-    let loginUserData = JSON.parse(localStorage.getItem("loginUserData"));
+    let loginUserData = JSON.parse(localStorage.getItem("loginUserData") as string);
 
     if (loginUserData) {
       dispatch(loginSuccess(loginUserData));
