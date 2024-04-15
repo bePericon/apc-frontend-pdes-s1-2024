@@ -29,6 +29,8 @@ Using latest versions for all technologies (March 2024)
 
 ### For backend/frontend
 
+- (backend) Should be install last MongoDB version and running service
+
 - Run `npm install` in both directories to get the dependencies installed.
 
 To start the development server:
@@ -37,4 +39,13 @@ To start the development server:
 
 To start the frontend server:
 
-- Open another terminal and go to `/front`. Then run `npm run dev`
+- Open another terminal and go to `/frontend`. Then run `npm run dev`
+
+### For backend/frontend with Docker
+
+- Run `docker compose up -d` in both directories to get images and create containers.
+
+### Let's go!
+
+- Frontend: `localhost:3000`
+- Backend: `localhost:8080/api`
