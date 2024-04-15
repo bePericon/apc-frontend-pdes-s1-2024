@@ -81,3 +81,7 @@ export const StyledHomeContainer = styled.div`
   flex-direction: column;
   gap: 32px;
 `;
+
+export const StyledPaginationContainer = styled.div`
+  padding: 24px 0 24px;
+`;

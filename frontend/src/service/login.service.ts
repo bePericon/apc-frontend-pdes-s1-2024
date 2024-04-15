@@ -15,12 +15,12 @@ class LoginService extends HTTPService {
         loginData, { withCredentials: true }
       );
 
-      let { status, data } = loginUserData.data;
-      console.log("🚀 ~ LoginService ~ signIn ~ cookies, cookie:", loginUserData.headers)
+      const { status, data } = loginUserData.data;
+      const {password, ...cleanedUser} = data;
 
       store.dispatch(showSnackbar({ message: status, severity: "success" }));
 
-      localStorage.setItem("loginUserData", JSON.stringify(data));
+      localStorage.setItem("loginUserData", JSON.stringify(cleanedUser));
     } catch (err: any) {
       // console.log("🚀 ~ LoginService ~ login ~ err:", err);
     }

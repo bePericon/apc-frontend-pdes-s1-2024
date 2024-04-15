@@ -6,7 +6,7 @@ import CloseIcon from "@mui/icons-material/Close";
 interface InputSearchProps {
   value: string;
   onClick: () => void;
-  onChange: (event: any) => void;
+  onChange?: (event: any) => void;
   onClearSearch: () => void;
   width?: string;
 }
@@ -83,12 +83,11 @@ const InputSearch = ({
             sx={{ ml: 1, flex: 1 }}
             placeholder="Buscar en APC..."
             inputProps={{ "aria-label": "Buscar en APC" }}
-            onClick={onClick}
             value={value}
             onChange={onChange}
           />
 
-          <IconButton type="button" sx={{ p: "10px" }} aria-label="search">
+          <IconButton type="button" sx={{ p: "10px" }} aria-label="search" onClick={onClick}>
             <SearchIcon sx={{ color: "#577590" }} />
           </IconButton>
 

@@ -1,3 +1,4 @@
+import Loader from "@/components/common/Loader";
 import SnackbarAlert from "@/components/common/SnackbarAlert";
 import { store } from "@/redux/store";
 import "@/styles/globals.css";
@@ -12,6 +13,7 @@ export default function App({ Component, pageProps }: AppProps) {
       <ThemeProvider theme={theme as DefaultTheme}>
         <Component {...pageProps} />
         <SnackbarAlert />
+        <Loader />
       </ThemeProvider>
     </Provider>
   );

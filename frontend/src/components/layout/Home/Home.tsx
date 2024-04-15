@@ -1,8 +1,16 @@
-import { StyledContainerSearch, StyledContainerSection, StyledHomeContainer } from "./Home.styled";
+import {
+  StyledContainerSearch,
+  StyledContainerSection,
+  StyledHomeContainer,
+  StyledPaginationContainer,
+} from "./Home.styled";
 import InputSearch from "@/components/common/InputSearch/InputSearch";
 import useSearch from "@/hook/useSearch";
 import { useEffect, useRef, useState } from "react";
 import debounce from "lodash.debounce";
+import CardItemList from "@/components/common/CardItemList/CardItemList";
+import { StyledColumnItems } from "@/components/common/CardItemList/CardItemList.styled";
+import { Pagination } from "@mui/material";
 
 const Home = () => {
   const [inputValue, setInputValue] = useState("");
@@ -11,23 +19,21 @@ const Home = () => {
     hasResults,
     resetSearching,
     results,
-    hasError,
-    hiddenNoResults,
-    setHiddenNoResults,
+    totalPages,
+    currentPage,
   } = useSearch();
-  console.log("🚀 ~ Home ~ results:", results);
 
   const debouncedSearch = useRef(
-    debounce((term: string) => {
-      fetchArticles(term);
+    debounce((term: string, offset?: number) => {
+      fetchArticles(term, offset);
     }, 215)
   ).current;
 
-  const handleOnChange = async (event: any) => {
+  const handleOnChange = async (event: any, isSearch: boolean) => {
     const { target } = event;
     setInputValue(target.value);
     if (target.value.length >= 3) {
-      debouncedSearch(target.value);
+      if (isSearch) debouncedSearch(target.value);
     } else {
       resetSearching();
     }
@@ -39,7 +45,12 @@ const Home = () => {
   };
 
   const handleOnClick = () => {
-    if (inputValue !== "") handleOnChange({ target: { value: inputValue } });
+    if (inputValue !== "")
+      handleOnChange({ target: { value: inputValue } }, true);
+  };
+
+  const handleOnChangePage = (_: any, page: number) => {
+    debouncedSearch(inputValue, page);
   };
 
   useEffect(() => {
@@ -56,21 +67,29 @@ const Home = () => {
           <InputSearch
             value={inputValue}
             onClick={handleOnClick}
-            onChange={handleOnChange}
+            onChange={(event) => handleOnChange(event, false)}
             onClearSearch={handleOnClearSearch}
           />
         </StyledContainerSearch>
       </StyledContainerSection>
 
-      <StyledContainerSection>
-        {results.map((item, ind) => 
+      {hasResults && (
+        <StyledContainerSection withColor>
+          <StyledColumnItems>
+            {results.map((item, ind) => (
+              <CardItemList key={`item-${ind + 1}`} item={item} />
+            ))}
+          </StyledColumnItems>
 
-          <div key={`item-${ind + 1}`}>
-            {item.title}
-          </div>
-
-        )}
-      </StyledContainerSection>
+          <StyledPaginationContainer>
+            <Pagination
+              count={totalPages}
+              page={currentPage}
+              onChange={handleOnChangePage}
+            />
+          </StyledPaginationContainer>
+        </StyledContainerSection>
+      )}
     </StyledHomeContainer>
   );
 };
