@@ -1,8 +1,8 @@
-import { LoginData } from "@/types/login.types";
+import { LoginData, SignUpData } from "@/types/login.types";
 import { HTTPService } from "./http.service";
 import { store } from "@/redux/store";
 import { showSnackbar } from "@/redux/slice/snackbarSlice";
-import { loginSuccess } from "@/redux/slice/authSlice";
+import { loginSuccess, logoutSuccess } from "@/redux/slice/authSlice";
 
 class LoginService extends HTTPService {
   constructor() {
@@ -30,7 +30,26 @@ class LoginService extends HTTPService {
   }
 
   public logout(): void {
-    localStorage.removeItem("loginUserData");
+    store.dispatch(logoutSuccess());
+  }
+
+  public async signUp(signUpData: SignUpData): Promise<any> {
+    try {
+      const userData = await this.instance.post(
+        `${process.env.NEXT_PUBLIC_API_URL_BASE}/auth/signup`,
+        signUpData,
+        { withCredentials: true }
+      );
+
+      const { status, data } = userData.data;
+
+      store.dispatch(showSnackbar({ message: status, severity: "success" }));
+
+      return data;
+    } catch (err: any) {
+      // console.log("🚀 ~ LoginService ~ login ~ err:", err);
+    }
+    return "";
   }
 }
 
