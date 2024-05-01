@@ -36,7 +36,7 @@ class LoginService extends HTTPService {
   public async signUp(signUpData: SignUpData): Promise<any> {
     try {
       const userData = await this.instance.post(
-        `${process.env.NEXT_PUBLIC_API_URL_BASE}/user`,
+        `${process.env.NEXT_PUBLIC_API_URL_BASE}/auth/signup`,
         signUpData,
         { withCredentials: true }
       );
