@@ -13,9 +13,7 @@ import { StyledContainer, StyledForm } from "./Login.styled";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useState } from "react";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
-import { useDispatch } from "react-redux";
 import LoginService from "@/service/login.service";
-import { loginSuccess } from "@/redux/slice/authSlice";
 import { useRouter } from "next/navigation";
 
 interface InputsLogin {
@@ -31,18 +29,12 @@ const Login = () => {
   } = useForm<InputsLogin>();
 
   const [showPassword, setShowPassword] = useState<boolean>(false);
-
-  const dispatch = useDispatch();
   const router = useRouter();
 
   const onSubmit: SubmitHandler<InputsLogin> = async (data) => {
-    await LoginService.signIn(data);
-    let loginUserData = JSON.parse(localStorage.getItem("loginUserData") as string);
+    const token = await LoginService.signIn(data);
 
-    if (loginUserData) {
-      dispatch(loginSuccess(loginUserData));
-      router.push("/apc");
-    }
+    if (token.length > 0) router.push("/apc");
   };
 
   return (
@@ -98,8 +90,8 @@ const Login = () => {
           disabled={!isDirty || !isValid}
           sx={{
             "&:hover": {
-              backgroundColor: "#0D3B66"
-            }
+              backgroundColor: "#0D3B66",
+            },
           }}
         >
           Iniciar sesión
