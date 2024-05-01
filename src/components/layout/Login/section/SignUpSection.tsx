@@ -25,6 +25,7 @@ const SignUpSection = () => {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors, isDirty, isValid },
   } = useForm<InputsSignUp>();
 
@@ -34,7 +35,10 @@ const SignUpSection = () => {
   const onSubmit: SubmitHandler<InputsSignUp> = async (data) => {
     const user = await LoginService.signUp(data);
 
-    if (user.id) router.push("/");
+    if (user) {
+      reset();
+      router.refresh();
+    }
   };
   return (
     <>
