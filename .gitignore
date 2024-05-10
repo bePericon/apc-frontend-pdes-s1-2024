@@ -5,6 +5,7 @@
 .vscode
 .idea
 .npm
+.swc
 
 # testing
 /coverage
