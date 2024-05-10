@@ -3,6 +3,7 @@ import { HTTPService } from "./http.service";
 import { store } from "@/redux/store";
 import { showSnackbar } from "@/redux/slice/snackbarSlice";
 import { loginSuccess, logoutSuccess } from "@/redux/slice/authSlice";
+import { User } from "@/types/apc.types";
 
 class LoginService extends HTTPService {
   constructor() {
@@ -33,7 +34,7 @@ class LoginService extends HTTPService {
     store.dispatch(logoutSuccess());
   }
 
-  public async signUp(signUpData: SignUpData): Promise<any> {
+  public async signUp(signUpData: SignUpData): Promise<User> {
     try {
       const userData = await this.instance.post(
         `${process.env.NEXT_PUBLIC_API_URL_BASE}/auth/signup`,
@@ -49,7 +50,7 @@ class LoginService extends HTTPService {
     } catch (err: any) {
       // console.log("🚀 ~ LoginService ~ login ~ err:", err);
     }
-    return "";
+    return {} as User;
   }
 }
 
