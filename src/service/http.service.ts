@@ -50,4 +50,27 @@ export abstract class HTTPService {
 
     return Promise.reject(error);
   };
+
+  // private handleError(catchError: any, method: string) {
+  //   const error = new Error(
+  //     catchError?.response?.data?.message ||
+  //       catchError?.message ||
+  //       "Ha ocurrido un error inesperado."
+  //   );
+
+  //   const errorCode =
+  //     catchError.cause?.status || catchError.response?.status || 500;
+
+  //   console.log(
+  //     `CMS Service: Error ${errorCode} - ${error.message} occurred while executing ${method}`
+  //   );
+
+  //   return {
+  //     data: [],
+  //     error: {
+  //       code: errorCode,
+  //       message: error.message,
+  //     },
+  //   };
+  // }
 }

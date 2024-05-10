@@ -20,16 +20,19 @@ import FavoriteService from "@/service/favorite.service";
 import { useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
 import { useEffect, useState } from "react";
+import MeliService from "@/service/meli.service";
+import { Product } from "@/types/meli.types";
 
 interface DialogItemListProps {
   open: boolean;
   onClose: () => void;
-  item?: any;
+  item: Product;
 }
 
 const DialogItemList = ({ open, onClose, item }: DialogItemListProps) => {
   const user = useSelector((state: RootState) => state.auth.user);
 
+  const [currentItem, setCurrentItem] = useState<Product>(item);
   const [isFavorite, setIsFavorite] = useState<boolean>(false);
   const [rating, setRating] = useState<number | null>(null);
 
@@ -37,40 +40,42 @@ const DialogItemList = ({ open, onClose, item }: DialogItemListProps) => {
     if (!isFavorite) {
       await FavoriteService.add({
         userId: user._id,
-        itemId: item.id,
+        itemId: currentItem.id,
       });
+      const { data } = await MeliService.searchByItemId(currentItem.id);
+      setCurrentItem(data);
       setIsFavorite(true);
     } else {
-      await FavoriteService.delete(item?.isFavorite._id);
+      await FavoriteService.delete(currentItem?.isFavorite?._id);
       setIsFavorite(false);
     }
   };
 
   const handleOnChange = async (event: any, newValue: any) => {
-    await FavoriteService.update(item?.isFavorite._id, newValue, "");
-    setRating(newValue)
+    await FavoriteService.update(currentItem?.isFavorite._id, newValue, "");
+    setRating(newValue);
   };
 
   useEffect(() => {
     if (item?.isFavorite) {
       setIsFavorite(true);
-      setRating(item.isFavorite.rating);
+      setRating(currentItem.isFavorite.rating);
     }
   }, [item]);
 
   return (
     <Dialog fullWidth={true} maxWidth={"md"} open={open} onClose={onClose}>
       <DialogTitle>
-        {item && (
+        {currentItem && (
           <StyledTitleContainer>
-            <Typography variant="h5">{item.title}</Typography>
+            <Typography variant="h5">{currentItem.title}</Typography>
             <HoverFavorite
               isFavorite={isFavorite}
               onClickFavorite={handleOnClickFavorite}
             />
           </StyledTitleContainer>
         )}
-        {!item && (
+        {!currentItem && (
           <Skeleton variant="text" sx={{ fontSize: "1.5rem", width: "100%" }} />
         )}
       </DialogTitle>
@@ -85,7 +90,7 @@ const DialogItemList = ({ open, onClose, item }: DialogItemListProps) => {
             width: "fit-content",
           }}
         >
-          {!item && (
+          {!currentItem && (
             <StyledSkeletonContainer>
               <Skeleton variant="rectangular" width={400} height={255} />
               <Skeleton
@@ -103,15 +108,15 @@ const DialogItemList = ({ open, onClose, item }: DialogItemListProps) => {
             </StyledSkeletonContainer>
           )}
 
-          {item && (
+          {currentItem && (
             <StyledContainer>
-              <CarouselPictures pictures={item.pictures} />
+              <CarouselPictures pictures={currentItem.pictures} />
 
               <StyledInfoContainer>
                 <StyledInnerContainer>
                   <Typography variant="body1">PRECIO</Typography>
                   <Typography variant="body1">
-                    $ {numberWithCommas(item.price)}
+                    $ {numberWithCommas(currentItem.price)}
                   </Typography>
                 </StyledInnerContainer>
 
