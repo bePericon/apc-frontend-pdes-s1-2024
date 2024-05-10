@@ -1,4 +1,4 @@
-import React, { SyntheticEvent, useEffect } from "react";
+import React, { SyntheticEvent } from "react";
 import { Alert, Snackbar, SnackbarCloseReason } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { hiddenSnackbar } from "@/redux/slice/snackbarSlice";
@@ -6,9 +6,6 @@ import { hiddenSnackbar } from "@/redux/slice/snackbarSlice";
 const SnackbarAlert = () => {
   const snackbar = useSelector((state: any) => state.snackbar);
   const dispatch = useDispatch();
-  let timeout = setTimeout(function () {
-    dispatch(hiddenSnackbar());
-  }, 4000);
 
   const handleOnClose = (
     event?: Event | SyntheticEvent<any, Event>,
@@ -20,12 +17,9 @@ const SnackbarAlert = () => {
     dispatch(hiddenSnackbar());
   };
 
-  useEffect(() => {
-    if (snackbar.isActive) clearTimeout(timeout);
-  }, [snackbar.isActive]);
-
   return (
     <Snackbar
+      autoHideDuration={6000}
       anchorOrigin={{ vertical: "top", horizontal: "right" }}
       open={snackbar.isActive}
       onClose={handleOnClose}
