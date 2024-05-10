@@ -1,4 +1,3 @@
-import { useWidth } from '@hooks/useWidth'
 import {
     StyledButton,
     StyledContainer,

@@ -1,3 +1,45 @@
 {
-  "extends": "next/core-web-vitals"
+  "extends": [
+    "next/core-web-vitals",
+    "prettier",
+    "plugin:@typescript-eslint/recommended",
+    "eslint:recommended",
+    "next"
+  ],
+  "plugins": ["prettier", "unused-imports", "@typescript-eslint"],
+  "parser": "@typescript-eslint/parser",
+  "ignorePatterns": [],
+  "rules": {
+    "no-unused-vars": "off", // or "@typescript-eslint/no-unused-vars": "off",
+    "unused-imports/no-unused-imports": "error",
+    "unused-imports/no-unused-vars": [
+      "warn",
+      {
+        "vars": "all",
+        "varsIgnorePattern": "^_",
+        "args": "after-used",
+        "argsIgnorePattern": "^_"
+      }
+    ],
+    "eqeqeq": "warn", // Use "===" instead of "=="
+    "no-console": "warn", // Try not to use console.logs
+    "no-debugger": "error", // Do not use debuggers
+    "no-var": "warn", // Use "let" instead of "var",
+    "prefer-const": "off", // TODO esto debería pasar a ser obligatorio, pero para evitar muchos fixes lo marco como off
+    "@typescript-eslint/no-explicit-any": "warn"
+  },
+  "overrides": [
+    {
+      "files": "*.d.ts",
+      "rules": {
+        "no-shadow": "off"
+      }
+    },
+    {
+      "files": ["*.ts", "*.tsx", "*.test.*"],
+      "rules": {
+        "no-undef": "off"
+      }
+    }
+  ]
 }
