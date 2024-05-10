@@ -35,7 +35,6 @@ export abstract class HTTPService {
   };
 
   private handleError = async (error: any) => {
-    const e = { ...error };
     if (error.message === "Network Error" && !error.response) {
       store.dispatch(
         showSnackbar({
@@ -44,8 +43,8 @@ export abstract class HTTPService {
         })
       );
     } else {
-      const { data } = error?.response;
-      store.dispatch(showSnackbar({ message: data.status, severity: "error" }));
+      const response = error?.response;
+      store.dispatch(showSnackbar({ message: response?.data.status, severity: "error" }));
     }
 
     return Promise.reject(error);
