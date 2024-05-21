@@ -11,8 +11,8 @@
     "lint:all": "next lint",
     "test": "jest",
     "test:cov": "jest --coverage",
-    "cy:e2e": "npx cypress run",
-    "cy:open": "npx cypress open"
+    "test:e2e": "npx cypress run",
+    "test:cy:open": "npx cypress open"
   },
   "dependencies": {
     "@emotion/react": "^11.11.4",
