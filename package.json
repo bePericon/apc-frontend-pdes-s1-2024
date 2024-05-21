@@ -10,7 +10,9 @@
     "lint:fix": "next lint --fix",
     "lint:all": "next lint",
     "test": "jest",
-    "test:cov": "jest --coverage"
+    "test:cov": "jest --coverage",
+    "cy:e2e": "npx cypress run",
+    "cy:open": "npx cypress open"
   },
   "dependencies": {
     "@emotion/react": "^11.11.4",
@@ -46,6 +48,7 @@
     "@types/styled-components": "^5.1.34",
     "@typescript-eslint/eslint-plugin": "^7.8.0",
     "@typescript-eslint/parser": "^7.8.0",
+    "cypress": "^13.10.0",
     "eslint": "^8",
     "eslint-config-next": "^14.2.1",
     "eslint-config-prettier": "^9.1.0",
