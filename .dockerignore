@@ -1,2 +1,11 @@
-.next/
 node_modules/
+coverage/
+cypress/
+dist/
+.vercel/
+.npm/
+.github/
+.swc/
+.dockerignore
+.git
+.gitignore

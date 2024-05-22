@@ -7,9 +7,8 @@ env:
 on:
   push:
     branches:
-      - feature/APC-39-add-e2e-tests
-      # - master
-      # - develop
+      - master
+      - develop
 
 jobs:
   avoid_reduncy:
