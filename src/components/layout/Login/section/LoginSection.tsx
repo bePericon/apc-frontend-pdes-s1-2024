@@ -87,6 +87,7 @@ const LoginSection = () => {
       </FormControl>
 
       <Button
+        name={'btn-login'}
         variant="contained"
         onClick={handleSubmit(onSubmit)}
         disabled={!isDirty || !isValid}

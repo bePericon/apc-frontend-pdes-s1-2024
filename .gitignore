@@ -9,6 +9,8 @@
 
 # testing
 /coverage
+/cypress/downloads
+/cypress/screenshots
 
 # production
 /build
@@ -34,4 +36,4 @@ yarn-error.log*
 *.tsbuildinfo
 
 # Deploy folders
-.vercel
+.vercel/
