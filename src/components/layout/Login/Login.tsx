@@ -1,9 +1,12 @@
-"use client";
-import { Paper, Tab, Tabs, Typography } from "@mui/material";
-import { StyledContainer, StyledForm } from "./Login.styled";
-import { useState } from "react";
-import LoginSection from "./section/LoginSection";
-import SignUpSection from "./section/SignUpSection";
+'use client'
+import { Paper, Tab, Tabs, Typography } from '@mui/material'
+import { StyledContainer, StyledForm } from './Login.styled'
+import { useEffect, useState } from 'react'
+import LoginSection from './section/LoginSection'
+import SignUpSection from './section/SignUpSection'
+import { useSelector } from 'react-redux'
+import { RootState } from '@/redux/store'
+import { useRouter } from 'next/router'
 
 enum TabLogin {
   LOGIN = 0,
@@ -11,7 +14,13 @@ enum TabLogin {
 }
 
 const Login = () => {
-  const [currentTab, setCurrentTab] = useState<TabLogin>(TabLogin.LOGIN);
+  const [currentTab, setCurrentTab] = useState<TabLogin>(TabLogin.LOGIN)
+  const currentUser = useSelector((state: RootState) => state.auth.user)
+  const router = useRouter()
+
+  useEffect(() => {
+    if (currentUser) router.replace('/apc')
+  }, [])
 
   return (
     <StyledContainer>
@@ -34,7 +43,7 @@ const Login = () => {
         </StyledForm>
       </Paper>
     </StyledContainer>
-  );
-};
+  )
+}
 
-export default Login;
+export default Login
