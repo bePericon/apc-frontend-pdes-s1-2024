@@ -1,5 +1,6 @@
-
-describe('Login navigation', () => {
+/// <reference types="cypress" />
+// @ts-check
+describe('Login failed because backend is off-line', () => {
     it('should navigate to the about page', () => {
         cy.visit('/')
 
@@ -10,6 +11,6 @@ describe('Login navigation', () => {
 
         cy.get('button[name=btn-login]').click()
 
-        cy.get('h4').contains('¿En qué podemos ayudarte?')
+        cy.get('[id=text-alert]').contains('Ha ocurrido un error de conexión.')
     })
 })

@@ -8,7 +8,7 @@ const SnackbarAlert = () => {
   const dispatch = useDispatch();
   let timeout = setTimeout(function () {
     dispatch(hiddenSnackbar());
-  }, 4000);
+  }, 4000000);
 
   const handleOnClose = (
     event?: Event | SyntheticEvent<any, Event>,
@@ -35,6 +35,7 @@ const SnackbarAlert = () => {
         severity={snackbar.severity}
         variant="filled"
         elevation={6}
+        id="text-alert"
       >
         {snackbar.message}
       </Alert>
