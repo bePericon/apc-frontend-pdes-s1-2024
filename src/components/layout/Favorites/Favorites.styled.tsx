@@ -77,7 +77,7 @@ export const StyledContainerSearch = styled.div`
   }}
 `;
 
-export const StyledHomeContainer = styled.div`
+export const StyledFavoritesContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: 4px;
