@@ -12,9 +12,14 @@ const Navbar = () => {
     return (
         <StyledNavbarContainer>
             {isUserPurchaser && (
-                <Link href={`/apc/favoritos/${user?._id}`}>
-                    <Typography variant="h6">Favoritos</Typography>
-                </Link>
+                <>
+                    <Link href={`/apc`}>
+                        <Typography variant="h6">Buscador</Typography>
+                    </Link>
+                    <Link href={`/apc/favoritos`}>
+                        <Typography variant="h6">Favoritos</Typography>
+                    </Link>
+                </>
             )}
         </StyledNavbarContainer>
     )

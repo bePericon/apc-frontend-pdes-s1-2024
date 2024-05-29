@@ -18,9 +18,6 @@ import PersonIcon from '@mui/icons-material/Person'
 import LoginService from '@/service/login.service'
 
 const Header: FC = () => {
-    // const currentTitle = useSelector(
-    //   (state: RootState) => state.navigation.title
-    // );
     const router = useRouter()
     const pathname = usePathname()
     const isHome = pathname === '/apc'
