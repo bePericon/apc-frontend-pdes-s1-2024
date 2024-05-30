@@ -8,7 +8,7 @@ const SnackbarAlert = () => {
   const dispatch = useDispatch();
   let timeout = setTimeout(function () {
     dispatch(hiddenSnackbar());
-  }, 4000000);
+  }, 4000);
 
   const handleOnClose = (
     event?: Event | SyntheticEvent<any, Event>,

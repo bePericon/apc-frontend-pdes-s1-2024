@@ -1,6 +1,5 @@
 import {
     StyledContainerSearch,
-    StyledContainerSection,
     StyledHomeContainer,
     StyledPaginationContainer,
 } from './Home.styled'
@@ -12,6 +11,7 @@ import CardItemList from '@/components/common/CardItemList/CardItemList'
 import { StyledColumnItems } from '@/components/common/CardItemList/CardItemList.styled'
 import { Pagination, Typography } from '@mui/material'
 import Navbar from '../Navbar/Navbar'
+import { StyledContainerSection } from '../Layout.styled'
 
 const Home = () => {
     const [inputValue, setInputValue] = useState('')
