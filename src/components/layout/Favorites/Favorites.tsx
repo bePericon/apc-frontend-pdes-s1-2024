@@ -3,11 +3,15 @@ import FavoriteService from '@/service/favorite.service'
 import { useSelector } from 'react-redux'
 import { RootState } from '@/redux/store'
 import Navbar from '../Navbar/Navbar'
-import { StyledColumnItems, StyledFavoritesContainer } from './Favorites.styled'
+import {
+    StyledColumnItems,
+    StyledFavoritesContainer,
+    StyledPaginationContainer,
+} from './Favorites.styled'
 import { StyledContainerSection } from '../Layout.styled'
 import CardFavoriteList from '@/components/common/CardFavoriteList/CardFavoriteList'
 import { Product } from '@/types/meli.types'
-import { Typography } from '@mui/material'
+import { Pagination, Typography } from '@mui/material'
 
 const Favorites = () => {
     const user = useSelector((state: RootState) => state.auth.user)
@@ -27,7 +31,7 @@ const Favorites = () => {
             <StyledContainerSection withColor>
                 <Navbar />
             </StyledContainerSection>
-            <StyledContainerSection withColor>
+            <StyledContainerSection withColor expandFullWidthMobile>
                 <StyledColumnItems>
                     {favorites.length === 0 && (
                         <Typography variant="h5">No se encontraron favoritos</Typography>
@@ -40,6 +44,15 @@ const Favorites = () => {
                         />
                     ))}
                 </StyledColumnItems>
+
+                {/* <StyledPaginationContainer>
+                    <Pagination
+                        count={totalPages}
+                        page={currentPage}
+                        onChange={handleOnChangePage}
+                        siblingCount={0}
+                    />
+                </StyledPaginationContainer> */}
             </StyledContainerSection>
         </StyledFavoritesContainer>
     )
