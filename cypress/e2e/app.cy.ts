@@ -1,7 +1,7 @@
 /// <reference types="cypress" />
 // @ts-check
-describe('Login failed because backend is off-line', () => {
-    it('should navigate to the about page', () => {
+describe('Login', () => {
+    it('should when complete form enabled button "INICIAR SESIÓN"', () => {
         cy.visit('/')
 
         cy.get('h2').contains('Asesor Personal de Compras')
@@ -9,8 +9,16 @@ describe('Login failed because backend is off-line', () => {
         cy.get('input[name=email]').type('ucomprador@email.com')
         cy.get('input[name=password]').type('12345678')
 
-        cy.get('button[name=btn-login]').click()
+        cy.get('button[name=btn-login]').should('not.be.disabled')
+    })
 
-        cy.get('[id=text-alert]').contains('Ha ocurrido un error de conexión.')
+    it('should when complete only email field hold disabled button "INICIAR SESIÓN"', () => {
+        cy.visit('/')
+
+        cy.get('h2').contains('Asesor Personal de Compras')
+
+        cy.get('input[name=email]').type('ucomprador@email.com')
+
+        cy.get('button[name=btn-login]').should('be.disabled')
     })
 })
