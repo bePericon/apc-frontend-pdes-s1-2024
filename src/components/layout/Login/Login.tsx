@@ -1,5 +1,4 @@
-'use client'
-import { Paper, Tab, Tabs, Typography } from '@mui/material'
+import { Tab, Tabs } from '@mui/material'
 import { StyledContainer, StyledForm, StyledPaper, StyledTypography } from './Login.styled'
 import { useEffect, useState } from 'react'
 import LoginSection from './section/LoginSection'

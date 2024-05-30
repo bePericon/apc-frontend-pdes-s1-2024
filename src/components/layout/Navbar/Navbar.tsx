@@ -1,6 +1,5 @@
 import Link from 'next/link'
 import { StyledNavbarContainer, StyledTypography } from './Navbar.styled'
-import { Typography } from '@mui/material'
 import { useSelector } from 'react-redux'
 import { RootState } from '@/redux/store'
 import { isPurchaser } from '@/utils/roles'

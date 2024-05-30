@@ -6,12 +6,11 @@ import Navbar from '../Navbar/Navbar'
 import {
     StyledColumnItems,
     StyledFavoritesContainer,
-    StyledPaginationContainer,
 } from './Favorites.styled'
 import { StyledContainerSection } from '../Layout.styled'
 import CardFavoriteList from '@/components/common/CardFavoriteList/CardFavoriteList'
 import { Product } from '@/types/meli.types'
-import { Pagination, Typography } from '@mui/material'
+import { Typography } from '@mui/material'
 
 const Favorites = () => {
     const user = useSelector((state: RootState) => state.auth.user)
