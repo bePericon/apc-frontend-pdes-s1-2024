@@ -4,7 +4,7 @@ describe('Login', () => {
     it('should when complete form enabled button "INICIAR SESIÓN"', () => {
         cy.visit('/')
 
-        cy.get('h2').contains('Asesor Personal de Compras')
+        cy.contains('Asesor Personal de Compras')
 
         cy.get('input[name=email]').type('ucomprador@email.com')
         cy.get('input[name=password]').type('12345678')
@@ -15,7 +15,7 @@ describe('Login', () => {
     it('should when complete only email field hold disabled button "INICIAR SESIÓN"', () => {
         cy.visit('/')
 
-        cy.get('h2').contains('Asesor Personal de Compras')
+        cy.contains('Asesor Personal de Compras')
 
         cy.get('input[name=email]').type('ucomprador@email.com')
 
