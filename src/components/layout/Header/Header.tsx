@@ -16,6 +16,7 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack'
 import { useRouter } from 'next/router'
 import PersonIcon from '@mui/icons-material/Person'
 import LoginService from '@/service/login.service'
+import { Typography } from '@mui/material'
 
 const Header: FC = () => {
     const router = useRouter()
@@ -53,18 +54,23 @@ const Header: FC = () => {
             )}
 
             <StyledMiCuenta>
-                <Link href="#" target="_blank" style={{ padding: 0 }}>
-                    <StyledIconMiCuenta>
-                        <PersonIcon />
-                    </StyledIconMiCuenta>
-                </Link>
+                {/* <Link href="#" target="_blank" style={{ padding: 0 }}> */}
+                <StyledIconMiCuenta
+                    onClick={() => {
+                        LoginService.logout()
+                        router.replace('/')
+                    }}
+                >
+                    <PersonIcon />
+                </StyledIconMiCuenta>
+                {/* </Link> */}
                 <StyledTextMiCuenta
                     onClick={() => {
                         LoginService.logout()
                         router.replace('/')
                     }}
                 >
-                    Cerrar sesión
+                    <Typography>Cerrar sesión</Typography>
                 </StyledTextMiCuenta>
             </StyledMiCuenta>
         </StyledHeaderContainer>

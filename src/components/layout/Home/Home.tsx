@@ -2,6 +2,7 @@ import {
     StyledContainerSearch,
     StyledHomeContainer,
     StyledPaginationContainer,
+    StyledTypography,
 } from './Home.styled'
 import InputSearch from '@/components/common/InputSearch/InputSearch'
 import useSearch from '@/hook/useSearch'
@@ -66,7 +67,7 @@ const Home = () => {
             </StyledContainerSection>
             <StyledContainerSection withColor>
                 <StyledContainerSearch>
-                    <Typography variant="h4">¿En qué podemos ayudarte?</Typography>
+                    <StyledTypography>¿En qué podemos ayudarte?</StyledTypography>
                     <InputSearch
                         value={inputValue}
                         onClick={handleOnClick}
@@ -77,7 +78,7 @@ const Home = () => {
             </StyledContainerSection>
 
             {hasResults && (
-                <StyledContainerSection withColor>
+                <StyledContainerSection withColor expandFullWidthMobile>
                     <StyledColumnItems>
                         {results.map((item, ind) => (
                             <CardItemList key={`item-${ind + 1}`} item={item} />
@@ -89,6 +90,7 @@ const Home = () => {
                             count={totalPages}
                             page={currentPage}
                             onChange={handleOnChangePage}
+                            siblingCount={0}
                         />
                     </StyledPaginationContainer>
                 </StyledContainerSection>

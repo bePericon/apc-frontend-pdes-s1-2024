@@ -7,13 +7,13 @@ import {
   InputAdornment,
   InputLabel,
   OutlinedInput,
-  Typography,
 } from "@mui/material";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useState } from "react";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import LoginService from "@/service/login.service";
 import { useRouter } from "next/navigation";
+import { StyledTypography } from "./Section.styled";
 
 interface InputsSignUp {
   name: string;
@@ -42,9 +42,9 @@ const SignUpSection = () => {
   };
   return (
     <>
-      <Typography variant="h4" component="h2">
+      <StyledTypography>
         Sumate a nosotros
-      </Typography>
+      </StyledTypography>
       <FormControl variant="outlined" error={errors.email ? true : false}>
         <InputLabel htmlFor="input-email">Nombre</InputLabel>
         <OutlinedInput

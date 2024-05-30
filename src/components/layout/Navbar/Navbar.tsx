@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { StyledNavbarContainer } from './Navbar.styled'
+import { StyledNavbarContainer, StyledTypography } from './Navbar.styled'
 import { Typography } from '@mui/material'
 import { useSelector } from 'react-redux'
 import { RootState } from '@/redux/store'
@@ -14,10 +14,10 @@ const Navbar = () => {
             {isUserPurchaser && (
                 <>
                     <Link href={`/apc`}>
-                        <Typography variant="h6">Buscador</Typography>
+                        <StyledTypography>Buscador</StyledTypography>
                     </Link>
                     <Link href={`/apc/favoritos`}>
-                        <Typography variant="h6">Favoritos</Typography>
+                        <StyledTypography>Favoritos</StyledTypography>
                     </Link>
                 </>
             )}

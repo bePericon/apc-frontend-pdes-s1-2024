@@ -4,7 +4,7 @@ import Dialog from '@mui/material/Dialog'
 import DialogActions from '@mui/material/DialogActions'
 import DialogContent from '@mui/material/DialogContent'
 import DialogTitle from '@mui/material/DialogTitle'
-import { Skeleton, Typography } from '@mui/material'
+import { Skeleton, Slide, Typography } from '@mui/material'
 import CarouselPictures from '../CarouselPictures/CarouselPictures'
 import {
     StyledContainer,
@@ -12,6 +12,7 @@ import {
     StyledInnerContainer,
     StyledSkeletonContainer,
     StyledTitleContainer,
+    StyledTypographyTitle,
 } from './DialogItemList.styled'
 import { numberWithCommas } from '@/utils/misc'
 import HoverRating from '../HoverRating'
@@ -19,9 +20,12 @@ import HoverFavorite from '../HoverFavorite'
 import FavoriteService from '@/service/favorite.service'
 import { useSelector } from 'react-redux'
 import { RootState } from '@/redux/store'
-import { useEffect, useState } from 'react'
+import { forwardRef, useEffect, useState } from 'react'
 import MeliService from '@/service/meli.service'
 import { Product } from '@/types/meli.types'
+import { TransitionProps } from '@mui/material/transitions'
+import MediaQueryWrapper from '../MediaQueryWrapper'
+import { useWidth } from '@/hook/useWidth'
 
 interface DialogItemListProps {
     open: boolean
@@ -29,7 +33,17 @@ interface DialogItemListProps {
     item: Product
 }
 
+const Transition = forwardRef(function Transition(
+    props: TransitionProps & {
+        children: React.ReactElement
+    },
+    ref: React.Ref<unknown>
+) {
+    return <Slide direction="up" ref={ref} {...props} />
+})
+
 const DialogItemList = ({ open, onClose, item }: DialogItemListProps) => {
+    const { isMobile } = useWidth()
     const user = useSelector((state: RootState) => state.auth.user)
 
     const [currentItem, setCurrentItem] = useState<Product>(item)
@@ -65,12 +79,16 @@ const DialogItemList = ({ open, onClose, item }: DialogItemListProps) => {
         }
     }, [item])
 
+    const propsDialog: any = isMobile
+        ? { fullScreen: true, TransitionComponent: Transition }
+        : { fullWidth: true, maxWidth: 'md' }
+
     return (
-        <Dialog fullWidth={true} maxWidth={'md'} open={open} onClose={onClose}>
+        <Dialog {...propsDialog} open={open} onClose={onClose}>
             <DialogTitle>
                 {currentItem && (
                     <StyledTitleContainer>
-                        <Typography variant="h5">{currentItem.title}</Typography>
+                        <StyledTypographyTitle>{currentItem.title}</StyledTypographyTitle>
                         <HoverFavorite
                             isFavorite={isFavorite}
                             onClickFavorite={handleOnClickFavorite}
@@ -90,14 +108,22 @@ const DialogItemList = ({ open, onClose, item }: DialogItemListProps) => {
                         flexDirection: 'column',
                         m: 'auto',
                         width: 'fit-content',
+                        marginTop: isMobile? 0 : 4,
                     }}
                 >
                     {!currentItem && (
                         <StyledSkeletonContainer>
-                            <Skeleton variant="rectangular" width={400} height={255} />
+                            <Skeleton
+                                variant="rectangular"
+                                width={isMobile ? 300 : 400}
+                                height={isMobile ? 240 : 255}
+                            />
                             <Skeleton
                                 variant="text"
-                                sx={{ fontSize: '2rem', width: '100%' }}
+                                sx={{
+                                    fontSize: '2rem',
+                                    width: isMobile ? '70%' : '100%',
+                                }}
                             />
                             <Skeleton
                                 variant="text"
