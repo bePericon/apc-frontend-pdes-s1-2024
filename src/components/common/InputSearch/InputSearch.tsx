@@ -18,55 +18,6 @@ const InputSearch = ({
   onClearSearch,
   width,
 }: InputSearchProps) => {
-  // const renderResults = () => {
-  //   return (
-  //     <>
-  //       {results.map((elem: any, index: number) => (
-  //         <StyledResult key={elem.id}>
-  //           {/* <Link
-  //             href={{
-  //               pathname: "/[category]/[article]",
-  //               query: {
-  //                 category: elem.categories?.[0]?.url,
-  //                 article: elem.url,
-  //               },
-  //             }}
-  //             onClick={() => {
-  //               handleClearSearch();
-  //               setHiddenNoResults(true);
-  //             }}
-  //           > */}
-  //           <StyledItem>
-  //             {/* <TextBody size="m" color="neutral" colorTone={500}> */}
-  //             {elem.title}
-  //             {/* </TextBody> */}
-  //           </StyledItem>
-  //           {/* </Link> */}
-
-  //           {index !== results.length - 1 && (
-  //             <StyledContainerDivider>
-  //               <Divider variant="fullWidth" />
-  //             </StyledContainerDivider>
-  //           )}
-  //         </StyledResult>
-  //       ))}
-  //     </>
-  //   );
-  // };
-
-  // const renderNoResults = () => {
-  //   return (
-  //     <StyledWithoutResults>
-  //       {/* <EmojiSadIcon size="m" color="neutral" colorTone="500" />
-  //       <TextBody size="m" color="neutral" colorTone={500}> */}
-  //       {hasError
-  //         ? "Ocurrió un error, inténtelo más tarde"
-  //         : "No encontramos resultados"}
-  //       {/* </TextBody> */}
-  //     </StyledWithoutResults>
-  //   );
-  // };
-
   return (
     <>
       <StyledContainer className="container" width={width}>
