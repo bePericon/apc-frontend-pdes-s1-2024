@@ -24,7 +24,6 @@ import { forwardRef, useEffect, useState } from 'react'
 import MeliService from '@/service/meli.service'
 import { Product } from '@/types/meli.types'
 import { TransitionProps } from '@mui/material/transitions'
-import MediaQueryWrapper from '../MediaQueryWrapper'
 import { useWidth } from '@/hook/useWidth'
 
 interface DialogItemListProps {
