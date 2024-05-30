@@ -11,7 +11,7 @@ import { DefaultTheme, ThemeProvider } from 'styled-components'
 export default function App({ Component, pageProps }: AppProps) {
   return (
     <Provider store={store}>
-      <PersistGate loading={<Loader />} persistor={persistor}>
+      <PersistGate persistor={persistor}>
         <ThemeProvider theme={theme as DefaultTheme}>
           <Component {...pageProps} />
           <SnackbarAlert />
