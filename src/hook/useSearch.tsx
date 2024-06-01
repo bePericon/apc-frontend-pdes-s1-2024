@@ -20,8 +20,8 @@ const useSearch = () => {
     value: string | string[] | undefined,
     offset?: number
   ) => {
-    // dispatch(showLoader(true));
-    // setCurrentPage(offset ? offset : 1);
+    dispatch(showLoader(true));
+    setCurrentPage(offset ? offset : 1);
     const { data, error } = await MeliService.search(
       value,
       offset ? offset - 1 : 0,

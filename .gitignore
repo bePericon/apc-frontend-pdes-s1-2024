@@ -5,9 +5,12 @@
 .vscode
 .idea
 .npm
+.swc
 
 # testing
 /coverage
+/cypress/downloads
+/cypress/screenshots
 
 # production
 /build
@@ -32,3 +35,5 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 
+# Deploy folders
+.vercel/

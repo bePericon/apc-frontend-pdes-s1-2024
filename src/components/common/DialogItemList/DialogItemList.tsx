@@ -1,139 +1,173 @@
-import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
-import Dialog from "@mui/material/Dialog";
-import DialogActions from "@mui/material/DialogActions";
-import DialogContent from "@mui/material/DialogContent";
-import DialogTitle from "@mui/material/DialogTitle";
-import { Skeleton, Typography } from "@mui/material";
-import CarouselPictures from "../CarouselPictures/CarouselPictures";
+import Box from '@mui/material/Box'
+import Button from '@mui/material/Button'
+import Dialog from '@mui/material/Dialog'
+import DialogActions from '@mui/material/DialogActions'
+import DialogContent from '@mui/material/DialogContent'
+import DialogTitle from '@mui/material/DialogTitle'
+import { Skeleton, Slide, Typography } from '@mui/material'
+import CarouselPictures from '../CarouselPictures/CarouselPictures'
 import {
-  StyledContainer,
-  StyledInfoContainer,
-  StyledInnerContainer,
-  StyledSkeletonContainer,
-  StyledTitleContainer,
-} from "./DialogItemList.styled";
-import { numberWithCommas } from "@/utils/misc";
-import HoverRating from "../HoverRating";
-import HoverFavorite from "../HoverFavorite";
-import FavoriteService from "@/service/favorite.service";
-import { useSelector } from "react-redux";
-import { RootState } from "@/redux/store";
-import { useEffect, useState } from "react";
+    StyledContainer,
+    StyledInfoContainer,
+    StyledInnerContainer,
+    StyledSkeletonContainer,
+    StyledTitleContainer,
+    StyledTypographyTitle,
+} from './DialogItemList.styled'
+import { numberWithCommas } from '@/utils/misc'
+import HoverRating from '../HoverRating'
+import HoverFavorite from '../HoverFavorite'
+import FavoriteService from '@/service/favorite.service'
+import { useSelector } from 'react-redux'
+import { RootState } from '@/redux/store'
+import { forwardRef, useEffect, useState } from 'react'
+import MeliService from '@/service/meli.service'
+import { Product } from '@/types/meli.types'
+import { TransitionProps } from '@mui/material/transitions'
+import { useWidth } from '@/hook/useWidth'
 
 interface DialogItemListProps {
-  open: boolean;
-  onClose: () => void;
-  item?: any;
+    open: boolean
+    onClose: () => void
+    item: Product
 }
 
+const Transition = forwardRef(function Transition(
+    props: TransitionProps & {
+        children: React.ReactElement
+    },
+    ref: React.Ref<unknown>
+) {
+    return <Slide direction="up" ref={ref} {...props} />
+})
+
 const DialogItemList = ({ open, onClose, item }: DialogItemListProps) => {
-  const user = useSelector((state: RootState) => state.auth.user);
+    const { isMobile } = useWidth()
+    const user = useSelector((state: RootState) => state.auth.user)
 
-  const [isFavorite, setIsFavorite] = useState<boolean>(false);
-  const [rating, setRating] = useState<number | null>(null);
+    const [currentItem, setCurrentItem] = useState<Product>(item)
+    const [isFavorite, setIsFavorite] = useState<boolean>(false)
+    const [rating, setRating] = useState<number | undefined>(undefined)
 
-  const handleOnClickFavorite = async () => {
-    if (!isFavorite) {
-      await FavoriteService.add({
-        userId: user._id,
-        itemId: item.id,
-      });
-      setIsFavorite(true);
-    } else {
-      await FavoriteService.delete(item?.isFavorite._id);
-      setIsFavorite(false);
+    const handleOnClickFavorite = async () => {
+        if (!isFavorite) {
+            await FavoriteService.add({
+                userId: user?._id,
+                itemId: currentItem.itemId,
+            })
+            const { data } = await MeliService.searchByItemId(currentItem.itemId)
+            setCurrentItem(data)
+            setIsFavorite(true)
+        } else {
+            if (currentItem?.isFavorite)
+                await FavoriteService.delete(currentItem.favoriteId as string)
+            setIsFavorite(false)
+        }
     }
-  };
 
-  const handleOnChange = async (event: any, newValue: any) => {
-    await FavoriteService.update(item?.isFavorite._id, newValue, "");
-    setRating(newValue)
-  };
-
-  useEffect(() => {
-    if (item?.isFavorite) {
-      setIsFavorite(true);
-      setRating(item.isFavorite.rating);
+    const handleOnChange = async (event: any, newValue: any) => {
+        if (currentItem?.isFavorite)
+            await FavoriteService.update(currentItem.favoriteId as string, newValue, '')
+        setRating(newValue)
     }
-  }, [item]);
 
-  return (
-    <Dialog fullWidth={true} maxWidth={"md"} open={open} onClose={onClose}>
-      <DialogTitle>
-        {item && (
-          <StyledTitleContainer>
-            <Typography variant="h5">{item.title}</Typography>
-            <HoverFavorite
-              isFavorite={isFavorite}
-              onClickFavorite={handleOnClickFavorite}
-            />
-          </StyledTitleContainer>
-        )}
-        {!item && (
-          <Skeleton variant="text" sx={{ fontSize: "1.5rem", width: "100%" }} />
-        )}
-      </DialogTitle>
-      <DialogContent>
-        <Box
-          noValidate
-          component="form"
-          sx={{
-            display: "flex",
-            flexDirection: "column",
-            m: "auto",
-            width: "fit-content",
-          }}
-        >
-          {!item && (
-            <StyledSkeletonContainer>
-              <Skeleton variant="rectangular" width={400} height={255} />
-              <Skeleton
-                variant="text"
-                sx={{ fontSize: "2rem", width: "100%" }}
-              />
-              <Skeleton
-                variant="text"
-                sx={{ fontSize: "1.5rem", width: "30%" }}
-              />
-              <Skeleton
-                variant="text"
-                sx={{ fontSize: "1.5rem", width: "30%" }}
-              />
-            </StyledSkeletonContainer>
-          )}
+    useEffect(() => {
+        if (item?.isFavorite) {
+            setIsFavorite(true)
+            setRating(item?.rating)
+        }
+    }, [item])
 
-          {item && (
-            <StyledContainer>
-              <CarouselPictures pictures={item.pictures} />
+    const propsDialog: any = isMobile
+        ? { fullScreen: true, TransitionComponent: Transition }
+        : { fullWidth: true, maxWidth: 'md' }
 
-              <StyledInfoContainer>
-                <StyledInnerContainer>
-                  <Typography variant="body1">PRECIO</Typography>
-                  <Typography variant="body1">
-                    $ {numberWithCommas(item.price)}
-                  </Typography>
-                </StyledInnerContainer>
-
-                {isFavorite && (
-                  <StyledInnerContainer>
-                    <Typography variant="body1">VALORACIÓN</Typography>
-                    <HoverRating
-                      ratingValue={rating}
-                      onChange={handleOnChange}
-                    />
-                  </StyledInnerContainer>
+    return (
+        <Dialog {...propsDialog} open={open} onClose={onClose}>
+            <DialogTitle>
+                {currentItem && (
+                    <StyledTitleContainer>
+                        <StyledTypographyTitle>{currentItem.title}</StyledTypographyTitle>
+                        <HoverFavorite
+                            isFavorite={isFavorite}
+                            onClickFavorite={handleOnClickFavorite}
+                        />
+                    </StyledTitleContainer>
                 )}
-              </StyledInfoContainer>
-            </StyledContainer>
-          )}
-        </Box>
-      </DialogContent>
-      <DialogActions>
-        <Button onClick={onClose}>CERRAR</Button>
-      </DialogActions>
-    </Dialog>
-  );
-};
+                {!currentItem && (
+                    <Skeleton variant="text" sx={{ fontSize: '1.5rem', width: '100%' }} />
+                )}
+            </DialogTitle>
+            <DialogContent>
+                <Box
+                    noValidate
+                    component="form"
+                    sx={{
+                        display: 'flex',
+                        flexDirection: 'column',
+                        m: 'auto',
+                        width: 'fit-content',
+                        marginTop: isMobile? 0 : 4,
+                    }}
+                >
+                    {!currentItem && (
+                        <StyledSkeletonContainer>
+                            <Skeleton
+                                variant="rectangular"
+                                width={isMobile ? 300 : 400}
+                                height={isMobile ? 240 : 255}
+                            />
+                            <Skeleton
+                                variant="text"
+                                sx={{
+                                    fontSize: '2rem',
+                                    width: isMobile ? '70%' : '100%',
+                                }}
+                            />
+                            <Skeleton
+                                variant="text"
+                                sx={{ fontSize: '1.5rem', width: '30%' }}
+                            />
+                            <Skeleton
+                                variant="text"
+                                sx={{ fontSize: '1.5rem', width: '30%' }}
+                            />
+                        </StyledSkeletonContainer>
+                    )}
 
-export default DialogItemList;
+                    {currentItem && (
+                        <StyledContainer>
+                            <CarouselPictures pictures={currentItem.pictures} />
+
+                            <StyledInfoContainer>
+                                <StyledInnerContainer>
+                                    <Typography variant="body1">PRECIO</Typography>
+                                    <Typography variant="body1">
+                                        $ {numberWithCommas(currentItem.price)}
+                                    </Typography>
+                                </StyledInnerContainer>
+
+                                {isFavorite && (
+                                    <StyledInnerContainer>
+                                        <Typography variant="body1">
+                                            VALORACIÓN
+                                        </Typography>
+                                        <HoverRating
+                                            ratingValue={rating as number}
+                                            onChange={handleOnChange}
+                                        />
+                                    </StyledInnerContainer>
+                                )}
+                            </StyledInfoContainer>
+                        </StyledContainer>
+                    )}
+                </Box>
+            </DialogContent>
+            <DialogActions>
+                <Button onClick={onClose}>CERRAR</Button>
+            </DialogActions>
+        </Dialog>
+    )
+}
+
+export default DialogItemList

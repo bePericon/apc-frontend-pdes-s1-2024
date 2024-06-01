@@ -14,6 +14,7 @@ RUN npm install -f --quiet
 
 #Copy app
 COPY . $HOME
+COPY .env.production $HOME/.env
 
 #Expose port 8080
 EXPOSE $PORT

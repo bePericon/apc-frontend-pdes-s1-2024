@@ -2,7 +2,7 @@ import styled, { DefaultTheme, css } from "styled-components";
 
 const mediaScreen = ({ theme }: { theme: DefaultTheme }) => {
   return css`
-    @media screen and (max-width: ${theme.breakpoints.m}) {
+    @media screen and (max-width: ${theme.breakpoints.s}) {
       width: ${({ width }: any) => (width ? width : "100%")};
     }
 
