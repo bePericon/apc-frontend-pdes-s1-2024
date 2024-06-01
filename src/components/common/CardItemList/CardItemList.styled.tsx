@@ -24,7 +24,7 @@ export const StyledCategoryCard = styled.div`
     ${({ theme }) => {
         return css`
             @media screen and (max-width: ${theme.breakpoints.s}) {
-                justify-content: center;
+                justify-content: space-between;
                 width: 90%;
                 height: auto;
                 min-height: 52px;
