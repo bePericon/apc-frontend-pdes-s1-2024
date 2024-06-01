@@ -25,3 +25,23 @@ Using latest versions for all technologies (March 2024)
 ### Let's go!
 
 - Frontend: `localhost:3000`
+
+## Prod environment
+
+Using [Vercel](https://vercel.com/) to deploy app
+
+- https://apc-frontend-pdes-s1-2024.vercel.app/
+
+## Using app
+
+Have a some generic data to test app both locally and in production
+
+- User administrator: 
+    - Email: admin@email.com
+    - Password: 12345678
+
+- User purchaser: 
+    - Email: ucomprador@email.com
+    - Password: 12345678
+
+Anyway, you can to create own user from login page! Enjoy , thanks!
