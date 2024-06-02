@@ -58,3 +58,17 @@ export const StyledContainerInnerRow = styled.div<{ withColor?: boolean }>`
     `;
   }}
 `;
+
+export const StyledContainerPage = styled.div`
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+
+    ${({ theme }) => {
+        return css`
+            @media screen and (max-width: ${theme.breakpoints.s}) {
+                text-align: center;
+            }
+        `
+    }}
+`
