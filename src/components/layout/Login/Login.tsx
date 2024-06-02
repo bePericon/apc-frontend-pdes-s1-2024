@@ -6,6 +6,7 @@ import SignUpSection from './section/SignUpSection'
 import { useSelector } from 'react-redux'
 import { RootState } from '@/redux/store'
 import { useRouter } from 'next/router'
+import { isAdmin, isPurchaser } from '@/utils/roles'
 
 enum TabLogin {
     LOGIN = 0,
@@ -18,7 +19,8 @@ const Login = () => {
     const router = useRouter()
 
     useEffect(() => {
-        if (currentUser) router.replace('/apc')
+        if (currentUser && isPurchaser(currentUser.roles)) router.replace('/apc')
+        if (currentUser && isAdmin(currentUser.roles)) router.replace('/apc/admin/reportes')
     }, [])
 
     return (
