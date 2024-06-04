@@ -54,6 +54,17 @@ class FavoriteService extends HTTPService {
 
         return data
     }
+
+    public async getReportTopFive(): Promise<{ data: any; error: any }> {
+        const { data } = await this.instance.get(
+            `${process.env.NEXT_PUBLIC_API_URL_BASE}/favorite/report/topfive`,
+            {
+                withCredentials: true,
+            }
+        )
+
+        return data
+    }
 }
 
 const instance = new FavoriteService()
