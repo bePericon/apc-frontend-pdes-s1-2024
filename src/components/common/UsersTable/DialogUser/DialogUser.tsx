@@ -60,7 +60,7 @@ const DialogUser = ({ open, onClose, user }: DialogItemListProps) => {
     }, [user])
 
     return (
-        <Dialog open={open} onClose={onClose}>
+        <Dialog open={open} onClose={() => onClose()}>
             <DialogTitle>Edición de usuario</DialogTitle>
             <DialogContent>
                 <StyledFormContainer>
@@ -180,7 +180,7 @@ const DialogUser = ({ open, onClose, user }: DialogItemListProps) => {
                 </StyledFormContainer>
             </DialogContent>
             <DialogActions>
-                <Button onClick={onClose} sx={{ color: '#F95738' }}>
+                <Button onClick={() => onClose()} sx={{ color: '#F95738' }}>
                     Cancelar
                 </Button>
                 <Button

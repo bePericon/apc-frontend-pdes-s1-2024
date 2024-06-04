@@ -1,6 +1,6 @@
 import { Role, RoleName } from '@/types/apc.types'
 
-const EnabledRoutes = {
+const EnabledRoutes: any = {
     [RoleName.PURCHASER]: ['/apc', '/apc/favoritos'],
     [RoleName.ADMIN]: [
         '/apc/admin/reportes',
