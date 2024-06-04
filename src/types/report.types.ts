@@ -1,5 +1,4 @@
 import { User } from './apc.types'
-import { Product } from './meli.types'
 
 export interface FavoriteItem {
     _id: string
