@@ -17,7 +17,7 @@ import {
 } from '@mui/material'
 import { Visibility, VisibilityOff } from '@mui/icons-material'
 import { StyledFormContainer } from './DialogUser.styled'
-import UserService from '../../../../service/user.service'
+import UserService from '../../../../../service/user.service'
 
 interface DialogItemListProps {
     open: boolean

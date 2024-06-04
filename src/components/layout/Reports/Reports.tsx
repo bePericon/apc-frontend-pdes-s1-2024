@@ -1,8 +1,8 @@
 import Navbar from '../Navbar/Navbar'
 import { StyledContainerPage, StyledContainerSection } from '../Layout.styled'
-import UsersTable from './UsersTable/UsersTable'
+import TopFiveReportTable from './TopFiveReportTable'
 
-const Users = () => {
+const Reports = () => {
     return (
         <StyledContainerPage>
             <StyledContainerSection withColor>
@@ -10,10 +10,10 @@ const Users = () => {
             </StyledContainerSection>
 
             <StyledContainerSection>
-                <UsersTable />
+                <TopFiveReportTable />
             </StyledContainerSection>
         </StyledContainerPage>
     )
 }
 
-export default Users
+export default Reports
