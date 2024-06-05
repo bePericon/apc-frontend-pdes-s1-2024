@@ -11,7 +11,6 @@ import debounce from 'lodash.debounce'
 import CardItemList from '@/components/common/CardItemList/CardItemList'
 import { StyledColumnItems } from '@/components/common/CardItemList/CardItemList.styled'
 import { Pagination } from '@mui/material'
-import Navbar from '../Navbar/Navbar'
 import { StyledContainerSection } from '../Layout.styled'
 
 const Home = () => {

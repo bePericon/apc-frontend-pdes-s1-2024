@@ -5,7 +5,6 @@ import {
     FormHelperText,
     IconButton,
     InputAdornment,
-    InputLabel,
     OutlinedInput,
 } from '@mui/material'
 import { SubmitHandler, useForm } from 'react-hook-form'
