@@ -27,9 +27,6 @@ const Favorites = () => {
 
     return (
         <StyledFavoritesContainer>
-            <StyledContainerSection withColor>
-                <Navbar />
-            </StyledContainerSection>
             <StyledContainerSection withColor expandFullWidthMobile>
                 <StyledColumnItems>
                     {favorites.length === 0 && (

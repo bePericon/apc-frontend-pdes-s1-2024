@@ -11,7 +11,7 @@ export const StyledContainerSearch = styled.div`
 
     ${({ theme }) => {
         return css`
-            @media screen and (max-width: ${theme.breakpoints.s}) {
+            @media screen and (max-width: ${theme.breakpoints.xxs}) {
                 margin: 32px 0 32px;
                 gap: 40px;
             }
@@ -26,7 +26,7 @@ export const StyledHomeContainer = styled.div`
 
     ${({ theme }) => {
         return css`
-            @media screen and (max-width: ${theme.breakpoints.s}) {
+            @media screen and (max-width: ${theme.breakpoints.xxs}) {
                 text-align: center;
             }
         `
@@ -43,7 +43,7 @@ export const StyledTypography = styled(Typography)`
 
     ${({ theme }) => {
         return css`
-            @media screen and (max-width: ${theme.breakpoints.s}) {
+            @media screen and (max-width: ${theme.breakpoints.xxs}) {
                 font-size: 1.8rem !important;
             }
         `

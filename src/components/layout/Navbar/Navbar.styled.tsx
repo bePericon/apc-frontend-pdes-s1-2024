@@ -11,7 +11,7 @@ export const StyledNavbarContainer = styled.div`
 
     ${({ theme }) => {
         return css`
-            @media screen and (max-width: ${theme.breakpoints.s}) {
+            @media screen and (max-width: ${theme.breakpoints.xxs}) {
                 justify-content: center;
                 margin-left: 0;
                 padding: 8px 0 8px;

@@ -16,7 +16,7 @@ export const StyledTableCellText = styled(Typography)`
 
     ${({ theme }) => {
         return css`
-            @media screen and (max-width: ${theme.breakpoints.s}) {
+            @media screen and (max-width: ${theme.breakpoints.xxs}) {
                 font-size: 14px !important;
             }
         `

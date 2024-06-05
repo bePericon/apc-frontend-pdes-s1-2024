@@ -10,7 +10,7 @@ export const StyledHeaderContainer = styled.div`
 
     ${({ theme }) => {
         return css`
-            @media screen and (max-width: ${theme.breakpoints.s}) {
+            @media screen and (max-width: ${theme.breakpoints.xxs}) {
                 height: 84px;
                 padding: 24px 16px;
             }
@@ -31,7 +31,7 @@ export const StyledDesktopLogo = styled.div`
 
     ${({ theme }) => {
         return css`
-            @media screen and (max-width: ${theme.breakpoints.s}) {
+            @media screen and (max-width: ${theme.breakpoints.xxs}) {
                 display: none;
             }
         `
@@ -43,7 +43,7 @@ export const StyledMobileLogo = styled.div`
 
     ${({ theme }) => {
         return css`
-            @media screen and (max-width: ${theme.breakpoints.s}) {
+            @media screen and (max-width: ${theme.breakpoints.xxs}) {
                 display: block;
             }
         `
@@ -77,7 +77,7 @@ export const StyledIconMiCuenta = styled.div`
 
     ${({ theme }) => {
         return css`
-            @media screen and (max-width: ${theme.breakpoints.s}) {
+            @media screen and (max-width: ${theme.breakpoints.xxs}) {
                 margin-right: 0;
             }
         `
@@ -95,7 +95,7 @@ export const StyledTextMiCuenta = styled.div`
 
     ${({ theme }) => {
         return css`
-            @media screen and (max-width: ${theme.breakpoints.s}) {
+            @media screen and (max-width: ${theme.breakpoints.xxs}) {
                 display: none;
             }
         `

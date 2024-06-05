@@ -10,7 +10,7 @@ export const StyledContainer = styled.div`
 
     ${({ theme }) => {
         return css`
-            @media screen and (max-width: ${theme.breakpoints.s}) {
+            @media screen and (max-width: ${theme.breakpoints.xxs}) {
                 text-align: left;
                 padding: 24px 20px;
             }
@@ -27,7 +27,7 @@ export const StyledTitle = styled(Typography)`
 
     ${({ theme }) => {
         return css`
-            @media screen and (max-width: ${theme.breakpoints.s}) {
+            @media screen and (max-width: ${theme.breakpoints.xxs}) {
                 font-size: 24px !important;
                 line-height: 24px !important;
             }
@@ -45,7 +45,7 @@ export const StyledSubTitle = styled(Typography)`
 
     ${({ theme }) => {
         return css`
-            @media screen and (max-width: ${theme.breakpoints.s}) {
+            @media screen and (max-width: ${theme.breakpoints.xxs}) {
                 font-size: 14px !important;
             }
         `

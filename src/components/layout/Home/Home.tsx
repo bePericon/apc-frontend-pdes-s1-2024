@@ -63,9 +63,6 @@ const Home = () => {
     return (
         <StyledHomeContainer>
             <StyledContainerSection withColor>
-                <Navbar />
-            </StyledContainerSection>
-            <StyledContainerSection withColor>
                 <StyledContainerSearch>
                     <StyledTypography>¿En qué podemos ayudarte?</StyledTypography>
                     <InputSearch
