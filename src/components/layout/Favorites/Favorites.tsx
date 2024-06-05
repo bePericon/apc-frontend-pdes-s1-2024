@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react'
 import FavoriteService from '@/service/favorite.service'
 import { useSelector } from 'react-redux'
 import { RootState } from '@/redux/store'
-import Navbar from '../Navbar/Navbar'
 import {
     StyledColumnItems,
     StyledFavoritesContainer,
@@ -11,6 +10,7 @@ import { StyledContainerSection } from '../Layout.styled'
 import CardFavoriteList from '@/components/common/CardFavoriteList/CardFavoriteList'
 import { Product } from '@/types/meli.types'
 import { Typography } from '@mui/material'
+import TitlePage from '@/components/common/TitlePage/TitlePage'
 
 const Favorites = () => {
     const user = useSelector((state: RootState) => state.auth.user)
@@ -27,9 +27,10 @@ const Favorites = () => {
 
     return (
         <StyledFavoritesContainer>
-            <StyledContainerSection withColor>
-                <Navbar />
-            </StyledContainerSection>
+            <TitlePage
+                title="Tus productos favoritos"
+                subtitle="Haciendo click en el producto podes dejar un comentario y ademas cambiar su valoración."
+            />
             <StyledContainerSection withColor expandFullWidthMobile>
                 <StyledColumnItems>
                     {favorites.length === 0 && (

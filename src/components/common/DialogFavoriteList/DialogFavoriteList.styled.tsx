@@ -21,7 +21,7 @@ export const StyledTypographyTitle = styled(Typography)`
 
     ${({ theme }) => {
         return css`
-            @media screen and (max-width: ${theme.breakpoints.s}) {
+            @media screen and (max-width: ${theme.breakpoints.xxs}) {
                 font-size: 1.1rem !important;
                 line-height: 1.1 !important;
             }
@@ -44,7 +44,7 @@ export const StyledContainer = styled.div`
 
     ${({ theme }) => {
         return css`
-            @media screen and (max-width: ${theme.breakpoints.s}) {
+            @media screen and (max-width: ${theme.breakpoints.xxs}) {
                 flex-direction: column;
                 width: 200px;
             }
@@ -60,7 +60,7 @@ export const StyledInfoContainer = styled.div`
 
     ${({ theme }) => {
         return css`
-            @media screen and (max-width: ${theme.breakpoints.s}) {
+            @media screen and (max-width: ${theme.breakpoints.xxs}) {
                 width: 200px;
             }
         `

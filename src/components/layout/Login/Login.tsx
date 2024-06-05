@@ -1,5 +1,12 @@
-import { Tab, Tabs } from '@mui/material'
-import { StyledContainer, StyledForm, StyledPaper, StyledTypography } from './Login.styled'
+import {
+    StyledFormContainer,
+    StyledForm,
+    StyledPaper,
+    StyledTitleTypography,
+    StyledTitleContainer,
+    StyledTabs,
+    StyledTab,
+} from './Login.styled'
 import { useEffect, useState } from 'react'
 import LoginSection from './section/LoginSection'
 import SignUpSection from './section/SignUpSection'
@@ -20,28 +27,40 @@ const Login = () => {
 
     useEffect(() => {
         if (currentUser && isPurchaser(currentUser.roles)) router.replace('/apc')
-        if (currentUser && isAdmin(currentUser.roles)) router.replace('/apc/admin/reportes')
+        if (currentUser && isAdmin(currentUser.roles))
+            router.replace('/apc/admin/reportes')
     }, [])
 
     return (
-        <StyledContainer>
-            <StyledTypography>Asesor Personal de Compras</StyledTypography>
-            <StyledPaper>
-                <Tabs
-                    value={currentTab}
-                    onChange={(_: any, value: number) => setCurrentTab(value)}
-                    centered
-                >
-                    <Tab label="INICIAR SESIÓN" />
-                    <Tab label="REGISTRARSE" />
-                </Tabs>
+        <>
+            <StyledTitleContainer>
+                <StyledTitleTypography>Asesor Personal de Compras</StyledTitleTypography>
+            </StyledTitleContainer>
 
-                <StyledForm>
-                    {currentTab === TabLogin.LOGIN && <LoginSection />}
-                    {currentTab === TabLogin.SINGUP && <SignUpSection />}
-                </StyledForm>
-            </StyledPaper>
-        </StyledContainer>
+            <StyledFormContainer>
+                <StyledPaper sx={{ borderRadius: 4 }}>
+                    <StyledTabs>
+                        <StyledTab
+                            className={currentTab === TabLogin.LOGIN ? 'selected' : ''}
+                            onClick={() => setCurrentTab(TabLogin.LOGIN)}
+                        >
+                            INICIAR SESIÓN
+                        </StyledTab>
+                        <StyledTab
+                            className={currentTab === TabLogin.SINGUP ? 'selected' : ''}
+                            onClick={() => setCurrentTab(TabLogin.SINGUP)}
+                        >
+                            REGISTRARSE
+                        </StyledTab>
+                    </StyledTabs>
+
+                    <StyledForm>
+                        {currentTab === TabLogin.LOGIN && <LoginSection />}
+                        {currentTab === TabLogin.SINGUP && <SignUpSection />}
+                    </StyledForm>
+                </StyledPaper>
+            </StyledFormContainer>
+        </>
     )
 }
 

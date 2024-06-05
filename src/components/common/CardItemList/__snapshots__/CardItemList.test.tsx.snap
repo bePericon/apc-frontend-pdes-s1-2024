@@ -6,14 +6,14 @@ exports[`CardItemList should render correctly 1`] = `
   "baseElement": <body>
     <div>
       <div
-        class="sc-cbe40c41-0 cWNDir"
+        class="sc-50c82cad-0 iARkFE"
       >
         <div
-          class="sc-cbe40c41-4 lbHZjb"
+          class="sc-50c82cad-4 ktMOFD"
         />
         <div>
           <div
-            class="sc-cbe40c41-3 bCRTAB"
+            class="sc-50c82cad-3 jAslBt"
           >
             <p
               class="MuiTypography-root MuiTypography-body1 css-ahj2mt-MuiTypography-root"
@@ -23,10 +23,10 @@ exports[`CardItemList should render correctly 1`] = `
           </div>
         </div>
         <div
-          class="sc-cbe40c41-6 fjtCkm"
+          class="sc-50c82cad-6 zYZiO"
         >
           <div
-            class="sc-cbe40c41-2 kYgFKE"
+            class="sc-50c82cad-2 bFXAWs"
           >
             <svg
               aria-hidden="true"
@@ -46,14 +46,14 @@ exports[`CardItemList should render correctly 1`] = `
   </body>,
   "container": <div>
     <div
-      class="sc-cbe40c41-0 cWNDir"
+      class="sc-50c82cad-0 iARkFE"
     >
       <div
-        class="sc-cbe40c41-4 lbHZjb"
+        class="sc-50c82cad-4 ktMOFD"
       />
       <div>
         <div
-          class="sc-cbe40c41-3 bCRTAB"
+          class="sc-50c82cad-3 jAslBt"
         >
           <p
             class="MuiTypography-root MuiTypography-body1 css-ahj2mt-MuiTypography-root"
@@ -63,10 +63,10 @@ exports[`CardItemList should render correctly 1`] = `
         </div>
       </div>
       <div
-        class="sc-cbe40c41-6 fjtCkm"
+        class="sc-50c82cad-6 zYZiO"
       >
         <div
-          class="sc-cbe40c41-2 kYgFKE"
+          class="sc-50c82cad-2 bFXAWs"
         >
           <svg
             aria-hidden="true"

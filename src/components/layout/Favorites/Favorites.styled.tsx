@@ -22,7 +22,7 @@ export const StyledColumnItems = styled.div`
 
     ${({ theme }) => {
         return css`
-            @media screen and (max-width: ${theme.breakpoints.s}) {
+            @media screen and (max-width: ${theme.breakpoints.xxs}) {
                 flex-direction: column;
                 gap: 16px;
             }

@@ -1,6 +1,6 @@
 import { Role, RoleName } from '@/types/apc.types'
 
-const EnabledRoutes : any = {
+const EnabledRoutes: any = {
     [RoleName.PURCHASER]: ['/apc', '/apc/favoritos'],
     [RoleName.ADMIN]: [
         '/apc/admin/reportes',
@@ -14,7 +14,7 @@ export const isPurchaser = (roles: Role[] = []) => {
 }
 
 export const isEnabledRoute = (roles: Role[], route: string) => {
-    return roles.some((role) => EnabledRoutes[role.name].includes(route) )
+    return roles.some((role) => EnabledRoutes[role.name].includes(route))
 }
 
 export const isAdmin = (roles: Role[] = []) => {
