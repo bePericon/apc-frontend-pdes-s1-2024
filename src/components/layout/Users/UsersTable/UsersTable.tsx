@@ -2,10 +2,8 @@ import { useEffect, useState } from 'react'
 import Table from '@mui/material/Table'
 import TableBody from '@mui/material/TableBody'
 import TableCell from '@mui/material/TableCell'
-import TableContainer from '@mui/material/TableContainer'
 import TableHead from '@mui/material/TableHead'
 import TableRow from '@mui/material/TableRow'
-import Paper from '@mui/material/Paper'
 import UserService from '../../../../service/user.service'
 import { User } from '@/types/apc.types'
 import moment from 'moment'
@@ -13,6 +11,11 @@ import { IconButton } from '@mui/material'
 import DeleteIcon from '@mui/icons-material/Delete'
 import EditIcon from '@mui/icons-material/Edit'
 import DialogUser from './DialogUser/DialogUser'
+import {
+    StyledTableCellText,
+    StyledTableContainer,
+    StyledTableHeadText,
+} from './UserTable.styled'
 
 const UsersTable = () => {
     const [users, setUsers] = useState<User[]>([])
@@ -31,16 +34,34 @@ const UsersTable = () => {
 
     return (
         <>
-            <TableContainer component={Paper}>
-                <Table sx={{ minWidth: 650 }} aria-label="simple table">
+            <StyledTableContainer>
+                <Table sx={{ minWidth: 250 }}>
                     <TableHead>
                         <TableRow>
-                            <TableCell>Nombre y Apellido</TableCell>
-                            <TableCell>Nombre de usuario</TableCell>
-                            <TableCell>Email</TableCell>
-                            <TableCell>Roles</TableCell>
-                            <TableCell>Fecha de creación</TableCell>
-                            <TableCell align="right">Acciones</TableCell>
+                            <TableCell>
+                                <StyledTableHeadText>
+                                    Nombre y Apellido
+                                </StyledTableHeadText>
+                            </TableCell>
+                            <TableCell>
+                                <StyledTableHeadText>
+                                    Nombre de usuario
+                                </StyledTableHeadText>
+                            </TableCell>
+                            <TableCell>
+                                <StyledTableHeadText>Email</StyledTableHeadText>
+                            </TableCell>
+                            <TableCell>
+                                <StyledTableHeadText>Roles</StyledTableHeadText>
+                            </TableCell>
+                            <TableCell>
+                                <StyledTableHeadText align="center">
+                                    Fecha de creación
+                                </StyledTableHeadText>
+                            </TableCell>
+                            <TableCell align="right">
+                                <StyledTableHeadText>Acciones</StyledTableHeadText>
+                            </TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
@@ -50,19 +71,33 @@ const UsersTable = () => {
                                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                             >
                                 <TableCell component="th" scope="row">
-                                    {`${user.name} ${user.surname}`}
-                                </TableCell>
-                                <TableCell>{user.username}</TableCell>
-                                <TableCell>{user.email}</TableCell>
-                                <TableCell>
-                                    {user.roles.map((role, ind, arr) =>
-                                        ind === arr.length - 1
-                                            ? `${role.name} `
-                                            : `${role.name} ,`
-                                    )}
+                                    <StyledTableCellText>
+                                        {`${user.name} ${user.surname}`}
+                                    </StyledTableCellText>
                                 </TableCell>
                                 <TableCell>
-                                    {moment(user.creationDate).format('DD/mm/yyyy')}
+                                    <StyledTableCellText>
+                                        {user.username}
+                                    </StyledTableCellText>
+                                </TableCell>
+                                <TableCell>
+                                    <StyledTableCellText>
+                                        {user.email}
+                                    </StyledTableCellText>
+                                </TableCell>
+                                <TableCell>
+                                    <StyledTableCellText>
+                                        {user.roles.map((role, ind, arr) =>
+                                            ind === arr.length - 1
+                                                ? `${role.name} `
+                                                : `${role.name} ,`
+                                        )}
+                                    </StyledTableCellText>
+                                </TableCell>
+                                <TableCell>
+                                    <StyledTableCellText align="center">
+                                        {moment(user.creationDate).format('DD/mm/yyyy')}
+                                    </StyledTableCellText>
                                 </TableCell>
                                 <TableCell align="right">
                                     <IconButton
@@ -82,7 +117,7 @@ const UsersTable = () => {
                         ))}
                     </TableBody>
                 </Table>
-            </TableContainer>
+            </StyledTableContainer>
             <DialogUser
                 onClose={(needUpdate?: boolean) => {
                     setOpenEditUser(false)

@@ -1,8 +1,8 @@
-import Link from 'next/link'
-import { StyledNavbarContainer, StyledTypography } from './Navbar.styled'
+import { StyledNavbarContainer } from './Navbar.styled'
 import { useSelector } from 'react-redux'
 import { RootState } from '@/redux/store'
 import { isAdmin, isPurchaser } from '@/utils/roles'
+import ButtonNav from './ButtonNav'
 
 const Navbar = () => {
     const user = useSelector((state: RootState) => state.auth.user)
@@ -13,26 +13,16 @@ const Navbar = () => {
         <StyledNavbarContainer>
             {isUserPurchaser && (
                 <>
-                    <Link href={`/apc`}>
-                        <StyledTypography>Buscador</StyledTypography>
-                    </Link>
-                    <Link href={`/apc/favoritos`}>
-                        <StyledTypography>Favoritos</StyledTypography>
-                    </Link>
+                    <ButtonNav href={`/apc`} text={'Buscador'} />
+                    <ButtonNav href={`/apc/favoritos`} text={'Favoritos'} />
                 </>
             )}
 
             {isUserAdmin && (
                 <>
-                    <Link href={`/apc/admin/reportes`}>
-                        <StyledTypography>Reportes</StyledTypography>
-                    </Link>
-                    <Link href={`/apc/admin/usuarios`}>
-                        <StyledTypography>Usuarios</StyledTypography>
-                    </Link>
-                    <Link href={`/apc/admin/favoritos`}>
-                        <StyledTypography>Favoritos</StyledTypography>
-                    </Link>
+                    <ButtonNav href={`/apc/admin/reportes`} text={'Reportes'} />
+                    <ButtonNav href={`/apc/admin/usuarios`} text={'Usuarios'} />
+                    {/* <ButtonNav href={`/apc/admin/favoritos`} text={'Favoritos'} /> */}
                 </>
             )}
         </StyledNavbarContainer>
