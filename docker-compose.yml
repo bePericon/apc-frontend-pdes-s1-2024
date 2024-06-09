@@ -2,13 +2,9 @@ version: "3.1"
 
 services:
   app:
-    container_name: apc-frontend
+    container_name: apc-frontend-prod
     build:
       context: .
       dockerfile: Dockerfile
     ports:
       - "3000:3000"
-    volumes:
-      - .:/opt/app
-      - /opt/app/node_modules
-      - /opt/app/.next

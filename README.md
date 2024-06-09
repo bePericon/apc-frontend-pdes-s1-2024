@@ -2,6 +2,7 @@
 
 App frontend for 'Practicas de desarrollo de software' signature S12024
 
+
 ## Stack
 
 Using latest versions for all technologies (March 2024)
@@ -14,17 +15,25 @@ Using latest versions for all technologies (March 2024)
 - Material UI 5.15
 - Jest 29.7
 
+
 ## Develop environment
 
 - Change name file `.env.example` to `.env.local`
 
 - Run `npm install -f` to get the dependencies installed.
 
-- Run `docker compose -p apc-frontend up -d --force-recreate` to get images and create containers.
+- Run `docker compose -f docker-compose.develop.yml -p apc-frontend-dev up -d --force-recreate` to get images and create containers.
+
+- You are change code without problems!
+
+### Production environment locally
+
+- Run `docker compose -f docker-compose.yml -p apc-frontend-prod up -d --force-recreate` to get images and create containers.
 
 ### Let's go!
 
 - Frontend: `localhost:3000`
+
 
 ## Prod environment
 

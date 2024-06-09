@@ -1,6 +1,5 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  distDir: 'dist',
   compiler: {
     styledComponents: true,
     removeConsole: false,
