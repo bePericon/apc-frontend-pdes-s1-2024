@@ -77,7 +77,7 @@ const Home = () => {
                 <StyledContainerSection withColor expandFullWidthMobile>
                     <StyledColumnItems>
                         {results.map((item, ind) => (
-                            <CardItemList key={`item-${ind + 1}`} item={item} />
+                            <CardItemList key={`item-${ind + 1}`} item={item} index={ind}/>
                         ))}
                     </StyledColumnItems>
 

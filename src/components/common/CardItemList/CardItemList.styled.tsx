@@ -1,6 +1,6 @@
 import styled, { css } from 'styled-components'
 
-export const StyledCategoryCard = styled.div`
+export const StyledCard = styled.div`
     width: 100%;
     min-height: 72px;
     display: flex;
@@ -32,10 +32,6 @@ export const StyledCategoryCard = styled.div`
             }
         `
     }}
-`
-
-export const StyledCategoryCardInner = styled.div`
-    display: flex;
 `
 
 export const StyledButton = styled.div`

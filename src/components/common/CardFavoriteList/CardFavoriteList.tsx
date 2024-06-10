@@ -15,9 +15,10 @@ import DialogFavoriteList from '../DialogFavoriteList/DialogFavoriteList'
 interface CardFavoriteListProps {
     item: Product
     setResearch: () => void
+    index: number
 }
 
-const CardFavoriteList = ({ item, setResearch }: CardFavoriteListProps) => {
+const CardFavoriteList = ({ item, setResearch, index }: CardFavoriteListProps) => {
     const [open, setOpen] = useState(false)
 
     const handleOnClick = async () => setOpen(true)
@@ -29,7 +30,10 @@ const CardFavoriteList = ({ item, setResearch }: CardFavoriteListProps) => {
 
     return (
         <>
-            <StyledCategoryCard onClick={handleOnClick}>
+            <StyledCategoryCard
+                onClick={handleOnClick}
+                data-test-id={`card-item-${index}`}
+            >
                 <StyledFirstIcon>
                     {item.thumbnail && (
                         <Image

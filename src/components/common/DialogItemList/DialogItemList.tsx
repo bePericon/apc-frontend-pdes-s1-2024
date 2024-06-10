@@ -107,7 +107,7 @@ const DialogItemList = ({ open, onClose, item }: DialogItemListProps) => {
                         flexDirection: 'column',
                         m: 'auto',
                         width: 'fit-content',
-                        marginTop: isMobile? 0 : 4,
+                        marginTop: isMobile ? 0 : 4,
                     }}
                 >
                     {!currentItem && (
@@ -164,7 +164,9 @@ const DialogItemList = ({ open, onClose, item }: DialogItemListProps) => {
                 </Box>
             </DialogContent>
             <DialogActions>
-                <Button onClick={onClose}>CERRAR</Button>
+                <Button data-test-id={'btn-dialog-close'} onClick={onClose}>
+                    CERRAR
+                </Button>
             </DialogActions>
         </Dialog>
     )
