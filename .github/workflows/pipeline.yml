@@ -44,8 +44,8 @@ jobs:
         run: npm run build
       - uses: actions/upload-artifact@v4
         with:
-          name: dist
-          path: dist
+          name: .next
+          path: .next
 
   test:
     needs: [lint, build]
@@ -59,8 +59,8 @@ jobs:
         run: npm ci -f
       - uses: actions/download-artifact@v4
         with:
-          name: dist
-          path: dist
+          name: .next
+          path: .next
       - name: Test
         run: npm run test
 
@@ -76,8 +76,8 @@ jobs:
         run: npm ci -f
       - uses: actions/download-artifact@v4
         with:
-          name: dist
-          path: dist
+          name: .next
+          path: .next
       - name: Cypress run
         uses: cypress-io/github-action@v6
         with:
