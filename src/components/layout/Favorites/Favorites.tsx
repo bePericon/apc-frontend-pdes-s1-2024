@@ -41,6 +41,7 @@ const Favorites = () => {
                             key={`item-${ind + 1}`}
                             item={item}
                             setResearch={fetching}
+                            index={ind}
                         />
                     ))}
                 </StyledColumnItems>

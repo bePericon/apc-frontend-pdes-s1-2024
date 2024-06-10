@@ -38,6 +38,7 @@ const InputSearch = ({
                 />
 
                 <IconButton
+                    name={'btn-search'}
                     type="button"
                     sx={{ p: '10px' }}
                     aria-label="search"
