@@ -18,7 +18,7 @@ Using latest versions for all technologies (March 2024)
 
 ## Develop environment
 
-- Change name file `.env.example` to `.env.local`
+- Change name file *.env.example* to *.env.local*
 
 - Run `npm install -f` to get the dependencies installed.
 
@@ -32,7 +32,29 @@ Using latest versions for all technologies (March 2024)
 
 ### Let's go!
 
-- Frontend: `localhost:3000`
+- Frontend: http://localhost:3000
+
+### SonarQube
+
+#### Steps to run locally
+
+1. In folder **docker/sonar** then run ```docker compose up -d --force-recreate``` to up docker container.
+
+2. Run ```sh run-sonar-scanner.sh``` to start scanner code in root folder  .
+
+#### Enter SonarQube locally
+
+- Access in browser: localhost:9000
+  - User: admin 
+  - Password: pass (first time, after you need change it)
+
+#### Solved to possible problems on Windows system
+
+- Change on **run-sonar-scanner.sh** file line:
+```-v ".:/usr/src" \```
+
+- to line:
+```-v "/$(pwd).:/usr/src" \```
 
 
 ## Prod environment
