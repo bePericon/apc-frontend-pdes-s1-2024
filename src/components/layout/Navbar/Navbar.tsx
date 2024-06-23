@@ -14,6 +14,7 @@ const Navbar = () => {
             {isUserPurchaser && (
                 <>
                     <ButtonNav href={`/apc`} text={'Buscador'} />
+                    <ButtonNav href={`/apc/compras`} text={'Compras'} />
                     <ButtonNav href={`/apc/favoritos`} text={'Favoritos'} />
                 </>
             )}
