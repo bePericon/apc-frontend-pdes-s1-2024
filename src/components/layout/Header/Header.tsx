@@ -78,9 +78,14 @@ const Header: FC = () => {
 
                 <StyledMiCuenta>
                     <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
-                        <MediaQueryWrapper visibleFor="mobile">
+                        <StyledTextMiCuenta
+                            onClick={() => {
+                                LoginService.logout()
+                                router.replace('/')
+                            }}
+                        >
                             <Typography>Cerrar sesión</Typography>
-                        </MediaQueryWrapper>
+                        </StyledTextMiCuenta>
 
                         <StyledIconMiCuenta
                             onClick={() => {
@@ -91,14 +96,6 @@ const Header: FC = () => {
                             <PersonIcon />
                         </StyledIconMiCuenta>
                     </div>
-                    <StyledTextMiCuenta
-                        onClick={() => {
-                            LoginService.logout()
-                            router.replace('/')
-                        }}
-                    >
-                        <Typography>Cerrar sesión</Typography>
-                    </StyledTextMiCuenta>
                 </StyledMiCuenta>
             </StyledHeaderContainer>
             <MediaQueryWrapper visibleFor="mobile">

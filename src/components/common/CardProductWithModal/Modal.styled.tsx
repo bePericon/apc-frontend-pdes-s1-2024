@@ -1,15 +1,6 @@
 import { Typography } from '@mui/material'
 import styled, { css } from 'styled-components'
 
-export const StyledSkeletonInfoContainer = styled.div`
-    width: 50%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 4px;
-`
-
 export const StyledTitleContainer = styled.div`
     display: flex;
     flex-direction: row;
@@ -31,22 +22,29 @@ export const StyledTypographyTitle = styled(Typography)`
 
 export const StyledSkeletonContainer = styled.div`
     display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 32px;
+
+    ${({ theme }) => {
+        return css`
+            @media screen and (max-width: ${theme.breakpoints.xxs}) {
+                flex-direction: column;
+            }
+        `
+    }}
 `
 
 export const StyledContainer = styled.div`
     display: flex;
     flex-direction: row;
-    align-items: center;
     gap: 24px;
 
     ${({ theme }) => {
         return css`
             @media screen and (max-width: ${theme.breakpoints.xxs}) {
                 flex-direction: column;
-                width: 200px;
             }
         `
     }}
@@ -55,21 +53,51 @@ export const StyledContainer = styled.div`
 export const StyledInfoContainer = styled.div`
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
+    align-items: flex-start;
     gap: 16px;
+`
+
+export const StyledInnerContainer = styled.div`
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+`
+
+export const StyledSkeletonInfoContainer = styled.div`
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 4px;
 
     ${({ theme }) => {
         return css`
             @media screen and (max-width: ${theme.breakpoints.xxs}) {
-                width: 200px;
+                width: 100%;
             }
         `
     }}
 `
 
-export const StyledInnerContainer = styled.div`
+export const StyledPurchaseSection = styled.div`
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    width: 100%;
+    margin-top: 16px;
+`
+
+export const StyledPurchaseInnerSection = styled.div`
+    display: flex;
     align-items: center;
+    gap: 16px;
+`
+
+export const StyledPurchaseButtonContainer = styled.div`
+    display: flex;
+    margin-top: 8px;
+    justify-content: flex-end;
 `

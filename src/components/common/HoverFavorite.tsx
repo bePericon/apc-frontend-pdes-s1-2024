@@ -1,6 +1,7 @@
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder'
 import FavoriteIcon from '@mui/icons-material/Favorite'
 import { useState } from 'react'
+import { IconButton } from '@mui/material'
 
 interface HoverFavoriteProps {
     isFavorite: boolean
@@ -10,7 +11,7 @@ interface HoverFavoriteProps {
 const HoverFavorite = ({ isFavorite, onClickFavorite }: HoverFavoriteProps) => {
     const [hover, setHover] = useState(false)
     return (
-        <div
+        <IconButton
             data-test-id={'btn-favorite'}
             style={{ cursor: 'pointer' }}
             onMouseEnter={() => setHover(true)}
@@ -24,7 +25,7 @@ const HoverFavorite = ({ isFavorite, onClickFavorite }: HoverFavoriteProps) => {
                 </>
             )}
             {isFavorite && <FavoriteIcon sx={{ color: '#F95738' }} />}
-        </div>
+        </IconButton>
     )
 }
 

@@ -1,22 +1,22 @@
 import React, { useEffect, useState } from 'react'
-import FavoriteService from '@/service/favorite.service'
+import purchaseService from '@/service/purchase.service'
 import { useSelector } from 'react-redux'
 import { RootState } from '@/redux/store'
-import { StyledColumnItems, StyledFavoritesContainer } from './Favorites.styled'
+import { StyledColumnItems, StyledPurchasesContainer } from './Purchases.styled'
 import { StyledContainerSection } from '../Layout.styled'
-import { Product } from '@/types/meli.types'
+import { Product, PurchaseProduct } from '@/types/meli.types'
 import { Typography } from '@mui/material'
 import TitlePage from '@/components/common/TitlePage/TitlePage'
 import CardProductWithModal from '@/components/common/CardProductWithModal/CardProductWithModal'
-import ModalFavorite from '@/components/common/ModalFavorite/ModalFavorite'
+import ModalPurchase from '@/components/common/ModalPurchase/ModalPurchase'
 
-const Favorites = () => {
+const Purchases = () => {
     const user = useSelector((state: RootState) => state.auth.user)
-    const [favorites, setFavorites] = useState<Product[]>([])
+    const [Purchases, setPurchases] = useState<Product[]>([])
 
     const fetching = async () => {
-        const { data } = await FavoriteService.getFavoritesByUserId(user?._id as string)
-        setFavorites(data)
+        const { data } = await purchaseService.getPurchasesByUserId(user?._id as string)
+        setPurchases(data)
     }
 
     useEffect(() => {
@@ -24,25 +24,27 @@ const Favorites = () => {
     }, [])
 
     return (
-        <StyledFavoritesContainer>
+        <StyledPurchasesContainer>
             <TitlePage
-                title="Tus productos favoritos"
-                subtitle="Haciendo click en el producto podes dejar un comentario y ademas cambiar su valoración."
+                title="Tus productos comprados"
+                subtitle="Haciendo click en el producto podes ver los datos de tu compra."
             />
             <StyledContainerSection withColor expandFullWidthMobile>
                 <StyledColumnItems>
-                    {favorites.length === 0 && (
-                        <Typography variant="h5">No se encontraron favoritos</Typography>
+                    {Purchases.length === 0 && (
+                        <Typography variant="h5" sx={{ textAlign: 'center'}}>
+                            No se encontraron compras realizadas
+                        </Typography>
                     )}
-                    {favorites.map((item, ind) => (
+                    {Purchases.map((item, ind) => (
                         <CardProductWithModal
                             key={`item-${ind + 1}`}
                             item={item}
-                            index={ind}
                             setResearch={fetching}
+                            index={ind}
                             renderModalComponent={(handleOnClose, open, item) => (
-                                <ModalFavorite
-                                    item={item}
+                                <ModalPurchase
+                                    item={item as PurchaseProduct}
                                     open={open}
                                     onClose={handleOnClose}
                                 />
@@ -51,8 +53,8 @@ const Favorites = () => {
                     ))}
                 </StyledColumnItems>
             </StyledContainerSection>
-        </StyledFavoritesContainer>
+        </StyledPurchasesContainer>
     )
 }
 
-export default Favorites
+export default Purchases
