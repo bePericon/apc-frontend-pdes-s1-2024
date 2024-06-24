@@ -10,7 +10,7 @@ describe('Add to favorites', () => {
         cy.get('input[name=password]').type('12345678')
         cy.get('button[name=btn-login]').click()
 
-        cy.get('input[placeholder="Buscar en APC..."]').type('Samsung E1272 Dual Sim 32 Mb Rojo 64 Mb Ram')
+        cy.get('input[placeholder="Buscar en APC..."]', { timeout: 5000 }).type('Samsung E1272 Dual Sim 32 Mb Rojo 64 Mb Ram')
         cy.get('[name=btn-search]').click()
         cy.get('[data-test-id="card-item-0"]', { timeout: 2000 }).click()
 
@@ -24,6 +24,6 @@ describe('Add to favorites', () => {
     
         cy.get('[data-test-id="btn-favorite"]', { timeout: 2000 }).click()
         
-        cy.contains('Samsung E1272 Dual Sim 32 Mb Rojo 64 Mb Ram').not
+        cy.contains('Samsung E1272 Dual Sim 32 Mb Rojo 64 Mb Ram').should('not.exist')
     })
 })

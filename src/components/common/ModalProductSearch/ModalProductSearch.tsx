@@ -178,7 +178,7 @@ const ModalProductSearch = ({ open, onClose, item }: ModalProductSearchProps) =>
                 </Box>
             </DialogContent>
             <DialogActions>
-                <Button onClick={onClose}>CERRAR</Button>
+                <Button data-test-id={'btn-dialog-close'} onClick={onClose}>CERRAR</Button>
             </DialogActions>
         </Dialog>
     )
