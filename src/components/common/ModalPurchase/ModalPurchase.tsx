@@ -15,15 +15,17 @@ import {
     StyledSkeletonContainer,
     StyledSkeletonInfoContainer,
     StyledTypographyTitle,
-} from './ModalPurchase.styled'
+} from '../CardProductWithModal/Modal.styled'
 import { numberWithCommas } from '@/utils/misc'
-import { forwardRef, useEffect, useState } from 'react'
+import { forwardRef, useState } from 'react'
 import { PurchaseProduct } from '@/types/meli.types'
 import { useWidth } from '@/hook/useWidth'
 import { TransitionProps } from '@mui/material/transitions'
 import AddIcon from '@mui/icons-material/Add'
 import RemoveIcon from '@mui/icons-material/Remove'
 import purchaseService from '@/service/purchase.service'
+import meliService from '@/service/meli.service'
+import CardProductSkeleton from '../CardProductWithModal/CardProductSkeleton'
 
 interface ModalPurchaseProps {
     open: boolean
@@ -48,21 +50,57 @@ const ModalPurchase = ({ open, onClose, item }: ModalPurchaseProps) => {
 
     const [localQuantity, setLocalQuantity] = useState(0)
 
-    const addQuantity = () => setLocalQuantity(localQuantity + 1)
-    const removeQuantity = () => setLocalQuantity(localQuantity - 1)
-
-    const handleOnClickBuy = async () => {
-        await purchaseService.update(item.purchaseId, item.quantity, item.price)
+    const addQuantity = () => {
+        setNewPrice(0)
+        setShowConfirmation(false)
+        setLocalQuantity(localQuantity + 1)
+    }
+    const removeQuantity = () => {
+        setNewPrice(0)
+        setShowConfirmation(false)
+        setLocalQuantity(localQuantity - 1)
     }
 
-    useEffect(() => {
-        if (item) {
-            setLocalQuantity(item.quantity)
+    const [showConfirmation, setShowConfirmation] = useState(false)
+    const [newPrice, setNewPrice] = useState(0)
+
+    const clearData = () => {
+        setLocalQuantity(0)
+        setNewPrice(0)
+        setShowConfirmation(false)
+    }
+
+    const handleOnClickConfirmation = async () => {
+        const newPurchase = {
+            userId: item.user,
+            itemId: item.itemId,
+            price: item.hydrated.price,
+            quantity: localQuantity,
         }
-    }, [item])
+        await purchaseService.add(newPurchase)
+        clearData()
+        onClose()
+    }
+
+    const handleOnClickBuy = async () => {
+        const { data } = await meliService.searchByItemId(item.itemId)
+        if (data.hydrated.price !== item.price) {
+            setNewPrice(data.hydrated.price)
+            setShowConfirmation(true)
+        } else {
+            handleOnClickConfirmation()
+        }
+    }
 
     return (
-        <Dialog {...propsDialog} open={open} onClose={onClose}>
+        <Dialog
+            {...propsDialog}
+            open={open}
+            onClose={() => {
+                clearData()
+                onClose()
+            }}
+        >
             <DialogContent>
                 <Box
                     noValidate
@@ -75,44 +113,7 @@ const ModalPurchase = ({ open, onClose, item }: ModalPurchaseProps) => {
                         marginTop: isMobile ? 0 : 4,
                     }}
                 >
-                    {!item && (
-                        <StyledSkeletonContainer>
-                            <Skeleton
-                                variant="rectangular"
-                                width={isMobile ? 300 : 400}
-                                height={isMobile ? 240 : 255}
-                            />
-
-                            <StyledSkeletonInfoContainer>
-                                <Skeleton
-                                    variant="text"
-                                    sx={{ fontSize: '1.5rem', width: '100%' }}
-                                />
-                                <Skeleton
-                                    variant="text"
-                                    sx={{ fontSize: '1.5rem', width: '30%' }}
-                                />
-                                <Skeleton
-                                    variant="text"
-                                    sx={{ fontSize: '1.5rem', width: '30%' }}
-                                />
-                                <Skeleton
-                                    variant="text"
-                                    sx={{ fontSize: '2rem', width: '80%' }}
-                                />
-                                <Skeleton
-                                    variant="text"
-                                    sx={{ fontSize: '1.5rem', width: '30%' }}
-                                />
-
-                                <Skeleton
-                                    variant="rectangular"
-                                    width={300}
-                                    height={150}
-                                />
-                            </StyledSkeletonInfoContainer>
-                        </StyledSkeletonContainer>
-                    )}
+                    {!item && <CardProductSkeleton />}
 
                     {item && (
                         <StyledContainer>
@@ -122,29 +123,30 @@ const ModalPurchase = ({ open, onClose, item }: ModalPurchaseProps) => {
                                 <StyledTypographyTitle>
                                     {item.hydrated?.title}
                                 </StyledTypographyTitle>
-                                {/* <HoverRating
-                                    ratingValue={rating as number}
-                                    onChange={handleOnChange}
-                                /> */}
                                 <StyledInnerContainer>
-                                    <Typography variant="h6">
+                                    <Typography variant="h5">
                                         $ {numberWithCommas(item.price)}
+                                    </Typography>
+                                    <Typography variant="body1">
+                                        Cantidad comprada: {item.quantity}
                                     </Typography>
                                 </StyledInnerContainer>
 
                                 <StyledPurchaseSection>
+                                    <Typography variant="h6">Nueva compra</Typography>
                                     <StyledPurchaseInnerSection>
-                                        <Typography variant="body1">Cantidad:</Typography>
                                         <>
+                                            <Typography variant="body1">
+                                                Cantidad:
+                                            </Typography>
                                             <IconButton
                                                 onClick={removeQuantity}
-                                                disabled={item.quantity === localQuantity}
+                                                disabled={localQuantity === 0}
                                             >
                                                 <RemoveIcon
                                                     sx={{
                                                         color:
-                                                            item.quantity ===
-                                                            localQuantity
+                                                            localQuantity === 0
                                                                 ? '#6c757d'
                                                                 : '#0D3B66',
                                                     }}
@@ -158,28 +160,50 @@ const ModalPurchase = ({ open, onClose, item }: ModalPurchaseProps) => {
                                             </IconButton>
                                         </>
                                     </StyledPurchaseInnerSection>
-                                    {item.quantity !== localQuantity &&
-                                        item.quantity < localQuantity && (
+                                    {localQuantity > 0 && (
+                                        <>
                                             <>
                                                 <Typography
                                                     variant="body2"
                                                     sx={{
-                                                        color: 'red',
+                                                        color: 'grey',
                                                     }}
                                                 >
-                                                    Se ha cambiado la cantidad de
-                                                    productos, antes era: {item.quantity}.
-                                                    Para realizar la compra de la
-                                                    diferencia presione el botón de
-                                                    comprar.
+                                                    Usted esta por comprar:{' '}
+                                                    {localQuantity} unidades de este
+                                                    producto.
                                                 </Typography>
-                                                <StyledPurchaseButtonContainer>
+                                                {showConfirmation && (
+                                                    <Typography
+                                                        variant="body2"
+                                                        sx={{
+                                                            color: 'red',
+                                                            fontWeight: 'bold',
+                                                        }}
+                                                    >
+                                                        Pero el precio ha cambiado, en
+                                                        este momento es de: $ {newPrice}
+                                                    </Typography>
+                                                )}
+                                            </>
+                                            <StyledPurchaseButtonContainer>
+                                                {!showConfirmation && (
                                                     <Button onClick={handleOnClickBuy}>
                                                         Comprar
                                                     </Button>
-                                                </StyledPurchaseButtonContainer>
-                                            </>
-                                        )}
+                                                )}
+                                                {showConfirmation && (
+                                                    <Button
+                                                        onClick={
+                                                            handleOnClickConfirmation
+                                                        }
+                                                    >
+                                                        Confirmar compra
+                                                    </Button>
+                                                )}
+                                            </StyledPurchaseButtonContainer>
+                                        </>
+                                    )}
                                 </StyledPurchaseSection>
                             </StyledInfoContainer>
                         </StyledContainer>
@@ -187,7 +211,14 @@ const ModalPurchase = ({ open, onClose, item }: ModalPurchaseProps) => {
                 </Box>
             </DialogContent>
             <DialogActions>
-                <Button onClick={onClose}>CERRAR</Button>
+                <Button
+                    onClick={() => {
+                        clearData()
+                        onClose()
+                    }}
+                >
+                    CERRAR
+                </Button>
             </DialogActions>
         </Dialog>
     )

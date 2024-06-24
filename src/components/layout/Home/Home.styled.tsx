@@ -9,6 +9,8 @@ export const StyledContainerSearch = styled.div`
     margin: 48px 0 48px;
     gap: 32px;
 
+    text-align: center;
+
     ${({ theme }) => {
         return css`
             @media screen and (max-width: ${theme.breakpoints.xxs}) {

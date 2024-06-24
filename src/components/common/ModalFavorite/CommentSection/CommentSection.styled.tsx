@@ -5,6 +5,8 @@ export const StyledCommentContainer = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    width: 100%;
+    margin-top: 24px;
 `
 
 export const StyledInnerButtons = styled.div`

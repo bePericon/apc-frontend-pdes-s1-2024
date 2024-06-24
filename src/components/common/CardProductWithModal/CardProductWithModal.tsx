@@ -13,7 +13,7 @@ import { Product } from '@/types/meli.types'
 
 interface CardProductWithModalProps {
     item: Product
-    setResearch: () => void
+    setResearch?: () => void
     index: number
     renderModalComponent: (handleOnClose: () => void, open: boolean, item: Product) => void
 }
@@ -30,7 +30,7 @@ const CardProductWithModal = ({
 
     const handleOnClose = () => {
         setOpen(false)
-        setResearch()
+        if(setResearch) setResearch()
     }
 
     return (

@@ -2,6 +2,7 @@ import styled, { css } from 'styled-components'
 
 export const StyledCategoryCard = styled.div`
     width: 100%;
+    max-width: auto;
     min-height: 72px;
     display: flex;
     align-items: center;
@@ -51,8 +52,8 @@ export const StyledInfo = styled.div`
     flex-direction: column;
     align-items: flex-start;
     gap: 4px;
-    min-width: 500px;
-    max-width: 500px;
+    min-width: 400px;
+    max-width: 400px;
     padding-top: 4px;
 
     [role='heading'] {
@@ -66,8 +67,9 @@ export const StyledInfo = styled.div`
                 min-height: auto;
             }
 
-            @media screen and (max-width: ${theme.breakpoints.xxs}) {
-                min-width: 180px;
+            @media screen and (max-width: ${theme.breakpoints.xs}) {
+                min-width: 100px;
+                max-width: 200px;
             }
         `
     }}

@@ -2,15 +2,13 @@ import React, { useEffect, useState } from 'react'
 import FavoriteService from '@/service/favorite.service'
 import { useSelector } from 'react-redux'
 import { RootState } from '@/redux/store'
-import {
-    StyledColumnItems,
-    StyledFavoritesContainer,
-} from './Favorites.styled'
+import { StyledColumnItems, StyledFavoritesContainer } from './Favorites.styled'
 import { StyledContainerSection } from '../Layout.styled'
-import CardFavoriteList from '@/components/common/CardFavoriteList/CardFavoriteList'
 import { Product } from '@/types/meli.types'
 import { Typography } from '@mui/material'
 import TitlePage from '@/components/common/TitlePage/TitlePage'
+import CardProductWithModal from '@/components/common/CardProductWithModal/CardProductWithModal'
+import ModalFavorite from '@/components/common/ModalFavorite/ModalFavorite'
 
 const Favorites = () => {
     const user = useSelector((state: RootState) => state.auth.user)
@@ -37,23 +35,21 @@ const Favorites = () => {
                         <Typography variant="h5">No se encontraron favoritos</Typography>
                     )}
                     {favorites.map((item, ind) => (
-                        <CardFavoriteList
+                        <CardProductWithModal
                             key={`item-${ind + 1}`}
                             item={item}
-                            setResearch={fetching}
                             index={ind}
+                            setResearch={fetching}
+                            renderModalComponent={(handleOnClose, open, item) => (
+                                <ModalFavorite
+                                    item={item}
+                                    open={open}
+                                    onClose={handleOnClose}
+                                />
+                            )}
                         />
                     ))}
                 </StyledColumnItems>
-
-                {/* <StyledPaginationContainer>
-                    <Pagination
-                        count={totalPages}
-                        page={currentPage}
-                        onChange={handleOnChangePage}
-                        siblingCount={0}
-                    />
-                </StyledPaginationContainer> */}
             </StyledContainerSection>
         </StyledFavoritesContainer>
     )

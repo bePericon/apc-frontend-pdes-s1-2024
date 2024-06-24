@@ -1,29 +1,22 @@
-import { User } from './apc.types'
-
 export interface FavoriteProduct {
-    favoriteId?: string
+    user: string
+    favoriteId: string
     rating?: number
     comment?: string
-    isFavorite?: boolean
+    createdDateFavorite: string
 }
 
 export interface Product extends FavoriteProduct {
-    title: string
-    thumbnail: string
-    thumbnail_id: string
-    pictures: any[]
-    price: number
     itemId: string
-
-    userId?: string
-    createdDate?: string
-    hydrated?: HydratedProduct
+    hydrated: HydratedProduct
 }
 
 export interface PurchaseProduct extends Product {
+    user: string
     purchaseId: string
     price: number
     quantity: number
+    createdDatePurchase: string
 }
 
 export interface HydratedProduct {

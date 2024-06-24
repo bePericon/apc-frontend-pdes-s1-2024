@@ -41,7 +41,7 @@ const CommentSection = ({ item }: CommentSectionProps) => {
 
     return (
         <StyledCommentContainer>
-            <FormControl variant="outlined">
+            <FormControl variant="outlined" sx={{ width: '100%'}}>
                 <TextField
                     id="input-comment"
                     label="Comentario"
@@ -50,9 +50,7 @@ const CommentSection = ({ item }: CommentSectionProps) => {
                     disabled={!editingComment}
                     multiline
                     rows={5}
-                    maxRows={5}
                     variant="outlined"
-                    sx={{ width: 300 }}
                 />
             </FormControl>
 

@@ -46,7 +46,7 @@ const CarouselPictures = ({ pictures }: CarouselPicturesProps) => {
                                 <Box
                                     component="img"
                                     sx={{
-                                        height: isMobile ? 200 : 255,
+                                        height: isMobile ? 200 : 400,
                                         maxWidth: isMobile ? 200 : 400,
                                         overflow: 'hidden',
                                     }}

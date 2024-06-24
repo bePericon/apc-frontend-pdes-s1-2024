@@ -32,7 +32,7 @@ const Purchases = () => {
             <StyledContainerSection withColor expandFullWidthMobile>
                 <StyledColumnItems>
                     {Purchases.length === 0 && (
-                        <Typography variant="h5">
+                        <Typography variant="h5" sx={{ textAlign: 'center'}}>
                             No se encontraron compras realizadas
                         </Typography>
                     )}
