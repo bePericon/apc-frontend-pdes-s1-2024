@@ -11,10 +11,11 @@
         "lint:all": "next lint",
         "test": "jest",
         "test:cov": "jest --coverage",
-        "test:e2e": "npx cypress run",
-        "test:cy:open": "npx cypress open"
+        "test:e2e": "dotenvx run --env-file=.env.production -- npx cypress run",
+        "test:cy:open": "dotenvx run --env-file=.env.production -- npx cypress open"
     },
     "dependencies": {
+        "@dotenvx/dotenvx": "^1.0.0",
         "@emotion/react": "^11.11.4",
         "@emotion/styled": "^11.11.5",
         "@fontsource/roboto": "^5.0.12",
