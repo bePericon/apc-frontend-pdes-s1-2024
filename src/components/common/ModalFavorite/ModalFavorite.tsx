@@ -42,8 +42,8 @@ const ModalFavorite = ({ open, onClose, item }: ModalFavoriteProps) => {
     const [rating, setRating] = useState<number | undefined>(undefined)
 
     const handleOnClickFavorite = async () => {
-            if (item.favoriteId) await FavoriteService.delete(item.favoriteId as string)
-            onClose()
+        if (item.favoriteId) await FavoriteService.delete(item.favoriteId as string)
+        onClose()
     }
 
     const handleOnChange = async (event: any, newValue: any) => {
@@ -75,7 +75,7 @@ const ModalFavorite = ({ open, onClose, item }: ModalFavoriteProps) => {
                         marginTop: isMobile ? 0 : 4,
                     }}
                 >
-                    {!item && <CardProductSkeleton showCommentSection/>}
+                    {!item && <CardProductSkeleton showCommentSection />}
 
                     {item && (
                         <StyledContainer>
