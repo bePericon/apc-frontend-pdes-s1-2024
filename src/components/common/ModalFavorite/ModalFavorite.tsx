@@ -3,7 +3,7 @@ import Button from '@mui/material/Button'
 import Dialog from '@mui/material/Dialog'
 import DialogActions from '@mui/material/DialogActions'
 import DialogContent from '@mui/material/DialogContent'
-import { Skeleton, Slide, Typography } from '@mui/material'
+import { Slide, Typography } from '@mui/material'
 import CarouselPictures from '../CarouselPictures/CarouselPictures'
 import { numberWithCommas } from '@/utils/misc'
 import HoverRating from '../HoverRating'
@@ -18,8 +18,6 @@ import {
     StyledContainer,
     StyledInfoContainer,
     StyledInnerContainer,
-    StyledSkeletonContainer,
-    StyledSkeletonInfoContainer,
     StyledTypographyTitle,
 } from '../CardProductWithModal/Modal.styled'
 import CardProductSkeleton from '../CardProductWithModal/CardProductSkeleton'

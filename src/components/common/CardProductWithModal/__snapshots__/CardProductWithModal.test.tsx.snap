@@ -6,28 +6,40 @@ exports[`CardItemList should render correctly 1`] = `
   "baseElement": <body>
     <div>
       <div
-        class="sc-6972a347-0 fPDzYd"
-        data-test-id="card-item-undefined"
+        class="sc-8e39d0e7-0 eBdvIW"
+        data-test-id="card-item-0"
       >
         <div
-          class="sc-6972a347-3 eTTfxJ"
-        />
+          class="sc-8e39d0e7-4 hbuvQA"
+        >
+          <img
+            alt="913503-MLA52132116989_102022"
+            data-nimg="1"
+            decoding="async"
+            height="90"
+            loading="lazy"
+            src="/_next/image?url=http%3A%2F%2Fhttp2.mlstatic.com%2FD_913503-MLA52132116989_102022-O.jpg&w=256&q=75"
+            srcset="/_next/image?url=http%3A%2F%2Fhttp2.mlstatic.com%2FD_913503-MLA52132116989_102022-O.jpg&w=96&q=75 1x, /_next/image?url=http%3A%2F%2Fhttp2.mlstatic.com%2FD_913503-MLA52132116989_102022-O.jpg&w=256&q=75 2x"
+            style="color: transparent; border-radius: 8px;"
+            width="90"
+          />
+        </div>
         <div>
           <div
-            class="sc-6972a347-2 ftyqJZ"
+            class="sc-8e39d0e7-3 fvRaGh"
           >
             <p
               class="MuiTypography-root MuiTypography-body1 css-ahj2mt-MuiTypography-root"
             >
-              Product name
+              Samsung Galaxy S22 Ultra 5g (snapdragon) 5g 512 Gb  Phantom Black 12 Gb Ram
             </p>
           </div>
         </div>
         <div
-          class="sc-6972a347-5 lijubw"
+          class="sc-8e39d0e7-6 bTZkRN"
         >
           <div
-            class="sc-6972a347-1 LVLSa"
+            class="sc-8e39d0e7-2 ifgIgX"
           >
             <svg
               aria-hidden="true"
@@ -47,28 +59,40 @@ exports[`CardItemList should render correctly 1`] = `
   </body>,
   "container": <div>
     <div
-      class="sc-6972a347-0 fPDzYd"
-      data-test-id="card-item-undefined"
+      class="sc-8e39d0e7-0 eBdvIW"
+      data-test-id="card-item-0"
     >
       <div
-        class="sc-6972a347-3 eTTfxJ"
-      />
+        class="sc-8e39d0e7-4 hbuvQA"
+      >
+        <img
+          alt="913503-MLA52132116989_102022"
+          data-nimg="1"
+          decoding="async"
+          height="90"
+          loading="lazy"
+          src="/_next/image?url=http%3A%2F%2Fhttp2.mlstatic.com%2FD_913503-MLA52132116989_102022-O.jpg&w=256&q=75"
+          srcset="/_next/image?url=http%3A%2F%2Fhttp2.mlstatic.com%2FD_913503-MLA52132116989_102022-O.jpg&w=96&q=75 1x, /_next/image?url=http%3A%2F%2Fhttp2.mlstatic.com%2FD_913503-MLA52132116989_102022-O.jpg&w=256&q=75 2x"
+          style="color: transparent; border-radius: 8px;"
+          width="90"
+        />
+      </div>
       <div>
         <div
-          class="sc-6972a347-2 ftyqJZ"
+          class="sc-8e39d0e7-3 fvRaGh"
         >
           <p
             class="MuiTypography-root MuiTypography-body1 css-ahj2mt-MuiTypography-root"
           >
-            Product name
+            Samsung Galaxy S22 Ultra 5g (snapdragon) 5g 512 Gb  Phantom Black 12 Gb Ram
           </p>
         </div>
       </div>
       <div
-        class="sc-6972a347-5 lijubw"
+        class="sc-8e39d0e7-6 bTZkRN"
       >
         <div
-          class="sc-6972a347-1 LVLSa"
+          class="sc-8e39d0e7-2 ifgIgX"
         >
           <svg
             aria-hidden="true"

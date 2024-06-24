@@ -3,7 +3,7 @@ import Button from '@mui/material/Button'
 import Dialog from '@mui/material/Dialog'
 import DialogActions from '@mui/material/DialogActions'
 import DialogContent from '@mui/material/DialogContent'
-import { IconButton, Skeleton, Slide, Typography } from '@mui/material'
+import { IconButton, Slide, Typography } from '@mui/material'
 import CarouselPictures from '../CarouselPictures/CarouselPictures'
 import {
     StyledContainer,
@@ -12,8 +12,6 @@ import {
     StyledPurchaseButtonContainer,
     StyledPurchaseInnerSection,
     StyledPurchaseSection,
-    StyledSkeletonContainer,
-    StyledSkeletonInfoContainer,
     StyledTypographyTitle,
 } from '../CardProductWithModal/Modal.styled'
 import { numberWithCommas } from '@/utils/misc'
