@@ -4,46 +4,55 @@ import {
     StyledFirstIcon,
     StyledInfo,
     StyledLastIcon,
-} from './CardFavoriteList.styled'
+} from './CardProductWithModal.styled'
 import { ChevronRight } from '@mui/icons-material'
 import Image from 'next/image'
 import { Typography } from '@mui/material'
 import { useState } from 'react'
 import { Product } from '@/types/meli.types'
-import DialogFavoriteList from '../DialogFavoriteList/DialogFavoriteList'
 
-interface CardFavoriteListProps {
+interface CardProductWithModalProps {
     item: Product
-    setResearch: () => void
+    setResearch?: () => void
+    index: number
+    renderModalComponent: (handleOnClose: () => void, open: boolean, item: Product) => void
 }
 
-const CardFavoriteList = ({ item, setResearch }: CardFavoriteListProps) => {
+const CardProductWithModal = ({
+    item,
+    setResearch,
+    index,
+    renderModalComponent,
+}: CardProductWithModalProps) => {
     const [open, setOpen] = useState(false)
 
     const handleOnClick = async () => setOpen(true)
 
     const handleOnClose = () => {
         setOpen(false)
-        setResearch()
+        if(setResearch) setResearch()
     }
 
     return (
         <>
-            <StyledCategoryCard onClick={handleOnClick}>
+            <StyledCategoryCard
+                onClick={handleOnClick}
+                data-test-id={`card-item-${index}`}
+            >
                 <StyledFirstIcon>
-                    {item.thumbnail && (
+                    {item.hydrated?.thumbnail && (
                         <Image
-                            src={item.thumbnail}
+                            src={item.hydrated?.thumbnail}
                             width={90}
                             height={90}
-                            alt={item.thumbnail_id}
+                            alt={item.hydrated?.thumbnail_id}
                             style={{ borderRadius: 8 }}
                         />
                     )}
                 </StyledFirstIcon>
                 <div>
                     <StyledInfo>
-                        <Typography>{item.title}</Typography>
+                        <Typography>{item.hydrated?.title}</Typography>
                     </StyledInfo>
                 </div>
                 <StyledLastIcon>
@@ -52,9 +61,9 @@ const CardFavoriteList = ({ item, setResearch }: CardFavoriteListProps) => {
                     </StyledButton>
                 </StyledLastIcon>
             </StyledCategoryCard>
-            <DialogFavoriteList onClose={handleOnClose} open={open} item={item} />
+            {renderModalComponent(handleOnClose, open, item)}
         </>
     )
 }
 
-export default CardFavoriteList
+export default CardProductWithModal

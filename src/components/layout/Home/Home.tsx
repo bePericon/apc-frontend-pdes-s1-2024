@@ -1,4 +1,5 @@
 import {
+    StyledColumnItems,
     StyledContainerSearch,
     StyledHomeContainer,
     StyledPaginationContainer,
@@ -8,11 +9,10 @@ import InputSearch from '@/components/common/InputSearch/InputSearch'
 import useSearch from '@/hook/useSearch'
 import { useEffect, useRef, useState } from 'react'
 import debounce from 'lodash.debounce'
-import CardItemList from '@/components/common/CardItemList/CardItemList'
-import { StyledColumnItems } from '@/components/common/CardItemList/CardItemList.styled'
 import { Pagination } from '@mui/material'
-import Navbar from '../Navbar/Navbar'
 import { StyledContainerSection } from '../Layout.styled'
+import CardProductWithModal from '@/components/common/CardProductWithModal/CardProductWithModal'
+import ModalProductSearch from '@/components/common/ModalProductSearch/ModalProductSearch'
 
 const Home = () => {
     const [inputValue, setInputValue] = useState('')
@@ -63,9 +63,6 @@ const Home = () => {
     return (
         <StyledHomeContainer>
             <StyledContainerSection withColor>
-                <Navbar />
-            </StyledContainerSection>
-            <StyledContainerSection withColor>
                 <StyledContainerSearch>
                     <StyledTypography>¿En qué podemos ayudarte?</StyledTypography>
                     <InputSearch
@@ -81,7 +78,18 @@ const Home = () => {
                 <StyledContainerSection withColor expandFullWidthMobile>
                     <StyledColumnItems>
                         {results.map((item, ind) => (
-                            <CardItemList key={`item-${ind + 1}`} item={item} />
+                            <CardProductWithModal
+                                key={`item-${ind + 1}`}
+                                item={item}
+                                index={ind}
+                                renderModalComponent={(handleOnClose, open, item) => (
+                                    <ModalProductSearch
+                                        item={item}
+                                        open={open}
+                                        onClose={handleOnClose}
+                                    />
+                                )}
+                            />
                         ))}
                     </StyledColumnItems>
 

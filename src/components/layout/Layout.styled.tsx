@@ -33,7 +33,7 @@ export const StyledContainerRow = styled.div<{
 
   ${({ theme, expandFullWidthMobile }) => {
     return css`
-      @media screen and (max-width: ${theme.breakpoints.s}) {
+      @media screen and (max-width: ${theme.breakpoints.xxs}) {
         margin-bottom: 24px;
         padding: 0 ${expandFullWidthMobile ? "0" : "20px"} 0;
       }
@@ -52,9 +52,23 @@ export const StyledContainerInnerRow = styled.div<{ withColor?: boolean }>`
 
   ${({ theme }) => {
     return css`
-      @media screen and (max-width: ${theme.breakpoints.s}) {
+      @media screen and (max-width: ${theme.breakpoints.xxs}) {
         border-radius: 16px;
       }
     `;
   }}
 `;
+
+export const StyledContainerPage = styled.div`
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+
+    ${({ theme }) => {
+        return css`
+            @media screen and (max-width: ${theme.breakpoints.xxs}) {
+                text-align: center;
+            }
+        `
+    }}
+`

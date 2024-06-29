@@ -2,11 +2,11 @@ import styled, { DefaultTheme, css } from "styled-components";
 
 const mediaScreen = ({ theme }: { theme: DefaultTheme }) => {
   return css`
-    @media screen and (max-width: ${theme.breakpoints.s}) {
+    @media screen and (max-width: ${theme.breakpoints.xxs}) {
       width: ${({ width }: any) => (width ? width : "100%")};
     }
 
-    @media screen and (max-width: ${theme.breakpoints.s}) {
+    @media screen and (max-width: ${theme.breakpoints.xxs}) {
       width: ${({ width }: any) => (width ? width : "250.7px")};
     }
   `;
@@ -34,7 +34,7 @@ export const StyledContainer = styled.div<{ width?: string }>`
 
     ${({ theme }) => {
       return css`
-        @media screen and (max-width: ${theme.breakpoints.s}) {
+        @media screen and (max-width: ${theme.breakpoints.xxs}) {
           font-size: 14px; 
         }
       `;

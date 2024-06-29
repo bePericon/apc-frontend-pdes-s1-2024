@@ -1,6 +1,5 @@
-import { Typography } from "@mui/material";
-import styled, { css } from "styled-components";
-
+import { Typography } from '@mui/material'
+import styled, { css } from 'styled-components'
 
 export const StyledNavbarContainer = styled.div`
     display: flex;
@@ -10,14 +9,10 @@ export const StyledNavbarContainer = styled.div`
     font-size: 1rem;
     margin-left: 32px;
 
-    a:hover {
-        color: #1976d2;
-    }
-
     ${({ theme }) => {
         return css`
-            @media screen and (max-width: ${theme.breakpoints.s}) {
-                justify-content: space-around;
+            @media screen and (max-width: ${theme.breakpoints.xxs}) {
+                justify-content: center;
                 margin-left: 0;
                 padding: 8px 0 8px;
             }
@@ -26,13 +21,16 @@ export const StyledNavbarContainer = styled.div`
 `
 
 export const StyledTypography = styled(Typography)`
-    font-size: 1.2rem !important;
+    font-size: 1rem !important;
+    padding: 0.4rem 0.5rem;
+    border-radius: 4px;
+    
+    &&:hover {
+        background: #f4d35e;
+    }
 
-    ${({ theme }) => {
-        return css`
-            @media screen and (max-width: ${theme.breakpoints.s}) {
-                font-size: 1.1rem !important;
-            }
-        `
-    }}
+    &.selected {
+        font-weight: bold;
+        background: #f4d35e;
+    }
 `

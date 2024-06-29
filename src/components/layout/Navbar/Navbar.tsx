@@ -1,23 +1,29 @@
-import Link from 'next/link'
-import { StyledNavbarContainer, StyledTypography } from './Navbar.styled'
+import { StyledNavbarContainer } from './Navbar.styled'
 import { useSelector } from 'react-redux'
 import { RootState } from '@/redux/store'
-import { isPurchaser } from '@/utils/roles'
+import { isAdmin, isPurchaser } from '@/utils/roles'
+import ButtonNav from './ButtonNav'
 
 const Navbar = () => {
     const user = useSelector((state: RootState) => state.auth.user)
     const isUserPurchaser = isPurchaser(user?.roles)
+    const isUserAdmin = isAdmin(user?.roles)
 
     return (
         <StyledNavbarContainer>
             {isUserPurchaser && (
                 <>
-                    <Link href={`/apc`}>
-                        <StyledTypography>Buscador</StyledTypography>
-                    </Link>
-                    <Link href={`/apc/favoritos`}>
-                        <StyledTypography>Favoritos</StyledTypography>
-                    </Link>
+                    <ButtonNav href={`/apc`} text={'Buscador'} />
+                    <ButtonNav href={`/apc/compras`} text={'Compras'} />
+                    <ButtonNav href={`/apc/favoritos`} text={'Favoritos'} />
+                </>
+            )}
+
+            {isUserAdmin && (
+                <>
+                    <ButtonNav href={`/apc/admin/reportes`} text={'Reportes'} />
+                    <ButtonNav href={`/apc/admin/usuarios`} text={'Usuarios'} />
+                    {/* <ButtonNav href={`/apc/admin/favoritos`} text={'Favoritos'} /> */}
                 </>
             )}
         </StyledNavbarContainer>

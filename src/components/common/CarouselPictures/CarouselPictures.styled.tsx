@@ -6,7 +6,7 @@ export const StyledImageContainer = styled.div`
 
     ${({ theme }) => {
         return css`
-            @media screen and (max-width: ${theme.breakpoints.s}) {
+            @media screen and (max-width: ${theme.breakpoints.xxs}) {
                 width: 200px;
             }
         `

@@ -2,6 +2,7 @@ import styled, { css } from 'styled-components'
 
 export const StyledCategoryCard = styled.div`
     width: 100%;
+    max-width: auto;
     min-height: 72px;
     display: flex;
     align-items: center;
@@ -23,8 +24,8 @@ export const StyledCategoryCard = styled.div`
 
     ${({ theme }) => {
         return css`
-            @media screen and (max-width: ${theme.breakpoints.s}) {
-                justify-content: space-between;
+            @media screen and (max-width: ${theme.breakpoints.xxs}) {
+                justify-content: center;
                 width: 90%;
                 height: auto;
                 min-height: 52px;
@@ -51,8 +52,8 @@ export const StyledInfo = styled.div`
     flex-direction: column;
     align-items: flex-start;
     gap: 4px;
-    min-width: 500px;
-    max-width: 500px;
+    min-width: 400px;
+    max-width: 400px;
     padding-top: 4px;
 
     [role='heading'] {
@@ -62,12 +63,13 @@ export const StyledInfo = styled.div`
 
     ${({ theme }) => {
         return css`
-            @media screen and (max-width: ${theme.breakpoints.s}) {
+            @media screen and (max-width: ${theme.breakpoints.xxs}) {
                 min-height: auto;
             }
 
-            @media screen and (max-width: ${theme.breakpoints.s}) {
-                min-width: 180px;
+            @media screen and (max-width: ${theme.breakpoints.xs}) {
+                min-width: 100px;
+                max-width: 200px;
             }
         `
     }}
@@ -84,23 +86,4 @@ export const StyledRenderIcon = styled.div`
 
 export const StyledLastIcon = styled.div`
     align-self: center;
-`
-
-export const StyledColumnItems = styled.div`
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-
-    gap: 24px;
-    padding: 20px 0 20px;
-
-    ${({ theme }) => {
-        return css`
-            @media screen and (max-width: ${theme.breakpoints.s}) {
-                flex-direction: column;
-                gap: 16px;
-            }
-        `
-    }}
 `
