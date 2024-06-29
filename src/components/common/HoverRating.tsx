@@ -7,9 +7,14 @@ import { Typography } from '@mui/material'
 interface HoverRatingProps {
     ratingValue: number | null
     onChange: (event: any, newValue: any) => void
+    disabled?: boolean
 }
 
-export default function HoverRating({ ratingValue, onChange }: HoverRatingProps) {
+export default function HoverRating({
+    ratingValue,
+    onChange,
+    disabled = false,
+}: HoverRatingProps) {
     const [hover, setHover] = React.useState(-1)
     const labels: { [index: string]: string } = {
         0: '0',
@@ -50,6 +55,7 @@ export default function HoverRating({ ratingValue, onChange }: HoverRatingProps)
                 }}
                 emptyIcon={<StarIcon style={{ opacity: 0.55 }} fontSize="inherit" />}
                 max={10}
+                disabled={disabled}
             />
             {ratingValue !== null && (
                 <Box>

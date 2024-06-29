@@ -5,7 +5,8 @@ const EnabledRoutes: any = {
     [RoleName.ADMIN]: [
         '/apc/admin/reportes',
         '/apc/admin/usuarios',
-        'apc/admin/favoritos',
+        '/apc/compras',
+        '/apc/favoritos',
     ],
 }
 

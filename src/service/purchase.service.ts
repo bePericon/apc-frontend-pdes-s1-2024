@@ -55,16 +55,27 @@ class PurchaseService extends HTTPService {
         return data
     }
 
-    // public async getReportTopFive(): Promise<{ data: any; error: any }> {
-    //     const { data } = await this.instance.get(
-    //         `${process.env.NEXT_PUBLIC_API_URL_BASE}/purchase/report/topfive`,
-    //         {
-    //             withCredentials: true,
-    //         }
-    //     )
+    public async getAll(): Promise<{ data: any; error: any }> {
+        const { data } = await this.instance.get(
+            `${process.env.NEXT_PUBLIC_API_URL_BASE}/purchase`,
+            {
+                withCredentials: true,
+            }
+        )
 
-    //     return data
-    // }
+        return data
+    }
+
+    public async getReportTopFiveBestSelling(): Promise<{ data: any; error: any }> {
+        const { data } = await this.instance.get(
+            `${process.env.NEXT_PUBLIC_API_URL_BASE}/purchase/report/top-five-best-selling-purchases`,
+            {
+                withCredentials: true,
+            }
+        )
+
+        return data
+    }
 }
 
 const instance = new PurchaseService()

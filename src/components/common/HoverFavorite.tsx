@@ -6,9 +6,10 @@ import { IconButton } from '@mui/material'
 interface HoverFavoriteProps {
     isFavorite: boolean
     onClickFavorite: () => void
+    disabled?: boolean
 }
 
-const HoverFavorite = ({ isFavorite, onClickFavorite }: HoverFavoriteProps) => {
+const HoverFavorite = ({ isFavorite, onClickFavorite, disabled = false }: HoverFavoriteProps) => {
     const [hover, setHover] = useState(false)
     return (
         <IconButton
@@ -17,6 +18,7 @@ const HoverFavorite = ({ isFavorite, onClickFavorite }: HoverFavoriteProps) => {
             onMouseEnter={() => setHover(true)}
             onMouseLeave={() => setHover(false)}
             onClick={onClickFavorite}
+            disabled={disabled}
         >
             {!isFavorite && (
                 <>
