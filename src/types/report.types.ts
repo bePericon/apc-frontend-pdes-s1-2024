@@ -1,25 +1,22 @@
-import { User } from './apc.types'
-
-export interface FavoriteItem {
-    _id: string
-    user: User
-    itemId: string
-    comment: string
-    rating: number
-}
-
-export interface FavoriteHydratedReport  {
-    title: string;
-    thumbnail: string;
-    thumbnail_id: string;
-    pictures: any[]
-    price: number
-}
+import { Favorite, User } from './apc.types'
+import { HydratedProduct, PurchaseProduct } from './meli.types'
 
 export interface FavoriteReportItem {
     _id: string // itemId
-    items: FavoriteItem[]
+    items: Favorite[]
     count: number // items length
     averageRating: number
-    hydrated: FavoriteHydratedReport // only data from Meli
+    hydrated: HydratedProduct // only data from Meli
+}
+
+export interface UserReportItem {
+    user: User
+    lastPurchase: PurchaseProduct
+    count: number
+}
+
+export interface BestSellingReportItem {
+    itemId: string
+    hydrated: HydratedProduct
+    count: number
 }

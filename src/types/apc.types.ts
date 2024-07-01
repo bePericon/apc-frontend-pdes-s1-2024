@@ -15,7 +15,7 @@ export interface Role {
 
 export interface Favorite {
     _id: string
-    user: string
+    user: string | User
     itemId: string
     comment: string
     rating: number

@@ -10,16 +10,14 @@ import { StyledCommentContainer, StyledInnerButtons } from './CommentSection.sty
 
 interface CommentSectionProps {
     item: Product
+    disabled?: boolean
 }
 
-const CommentSection = ({ item }: CommentSectionProps) => {
-    const {
-        register,
-        handleSubmit,
-        setValue,
-        watch
-    } = useForm<{ comment: string }>({ defaultValues: { comment: item.comment } })
-    const watchComment = watch("comment")
+const CommentSection = ({ item, disabled= false }: CommentSectionProps) => {
+    const { register, handleSubmit, setValue, watch } = useForm<{ comment: string }>({
+        defaultValues: { comment: item.comment },
+    })
+    const watchComment = watch('comment')
 
     const [editingComment, setEditingComment] = useState(false)
 
@@ -41,11 +39,11 @@ const CommentSection = ({ item }: CommentSectionProps) => {
 
     return (
         <StyledCommentContainer>
-            <FormControl variant="outlined" sx={{ width: '100%'}}>
+            <FormControl variant="outlined" sx={{ width: '100%' }}>
                 <TextField
                     id="input-comment"
                     label="Comentario"
-                    placeholder='Escriba aquí...'
+                    placeholder="Escriba aquí..."
                     {...register('comment')}
                     disabled={!editingComment}
                     multiline
@@ -54,21 +52,25 @@ const CommentSection = ({ item }: CommentSectionProps) => {
                 />
             </FormControl>
 
-            <StyledInnerButtons>
-                {editingComment && (
-                    <IconButton aria-label="save" onClick={handleSubmit(onSubmit)}>
-                        <CheckCircleIcon sx={{ color: '#0D3B66' }} />
-                    </IconButton>
-                )}
-                {!editingComment && (
-                    <IconButton aria-label="edit" onClick={handleOnClickEdit}>
-                        <EditIcon sx={{ color: '#EE964B' }} />
-                    </IconButton>
-                )}
-                {watchComment && <IconButton aria-label="delete" onClick={handleOnClickDelete}>
-                    <DeleteIcon sx={{ color: '#F95738' }} />
-                </IconButton>}
-            </StyledInnerButtons>
+            {!disabled && (
+                <StyledInnerButtons>
+                    {editingComment && (
+                        <IconButton aria-label="save" onClick={handleSubmit(onSubmit)}>
+                            <CheckCircleIcon sx={{ color: '#0D3B66' }} />
+                        </IconButton>
+                    )}
+                    {!editingComment && (
+                        <IconButton aria-label="edit" onClick={handleOnClickEdit}>
+                            <EditIcon sx={{ color: '#EE964B' }} />
+                        </IconButton>
+                    )}
+                    {watchComment && (
+                        <IconButton aria-label="delete" onClick={handleOnClickDelete}>
+                            <DeleteIcon sx={{ color: '#F95738' }} />
+                        </IconButton>
+                    )}
+                </StyledInnerButtons>
+            )}
         </StyledCommentContainer>
     )
 }

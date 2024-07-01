@@ -5,6 +5,17 @@ class FavoriteService extends HTTPService {
         super(process.env.NEXT_PUBLIC_API_URL_BASE as string)
     }
 
+    public async getAll(): Promise<{ data: any; error: any }> {
+        const { data } = await this.instance.get(
+            `${process.env.NEXT_PUBLIC_API_URL_BASE}/favorite`,
+            {
+                withCredentials: true,
+            }
+        )
+
+        return data
+    }
+
     public async add(favorite: any): Promise<{ data: any; error: any }> {
         const { data } = await this.instance.post(
             `${process.env.NEXT_PUBLIC_API_URL_BASE}/favorite`,
@@ -57,7 +68,7 @@ class FavoriteService extends HTTPService {
 
     public async getReportTopFive(): Promise<{ data: any; error: any }> {
         const { data } = await this.instance.get(
-            `${process.env.NEXT_PUBLIC_API_URL_BASE}/favorite/report/topfive`,
+            `${process.env.NEXT_PUBLIC_API_URL_BASE}/favorite/report/top-five`,
             {
                 withCredentials: true,
             }

@@ -15,7 +15,7 @@ import {
     StyledTypographyTitle,
 } from '../CardProductWithModal/Modal.styled'
 import { numberWithCommas } from '@/utils/misc'
-import { forwardRef, useState } from 'react'
+import { forwardRef, useEffect, useState } from 'react'
 import { PurchaseProduct } from '@/types/meli.types'
 import { useWidth } from '@/hook/useWidth'
 import { TransitionProps } from '@mui/material/transitions'
@@ -24,11 +24,15 @@ import RemoveIcon from '@mui/icons-material/Remove'
 import purchaseService from '@/service/purchase.service'
 import meliService from '@/service/meli.service'
 import CardProductSkeleton from '../CardProductWithModal/CardProductSkeleton'
+import { StyledTextEmail } from './ModalPurchase.styled'
+import userService from '@/service/user.service'
+import { User } from '@/types/apc.types'
 
 interface ModalPurchaseProps {
     open: boolean
     onClose: () => void
     item: PurchaseProduct
+    isAdminView: boolean
 }
 
 const Transition = forwardRef(function Transition(
@@ -40,13 +44,14 @@ const Transition = forwardRef(function Transition(
     return <Slide direction="up" ref={ref} {...props} />
 })
 
-const ModalPurchase = ({ open, onClose, item }: ModalPurchaseProps) => {
+const ModalPurchase = ({ open, onClose, item, isAdminView }: ModalPurchaseProps) => {
     const { isMobile } = useWidth()
     const propsDialog: any = isMobile
         ? { fullScreen: true, TransitionComponent: Transition }
         : { fullWidth: true, maxWidth: 'md' }
 
     const [localQuantity, setLocalQuantity] = useState(0)
+    const [userLocally, setUserLocally] = useState<User | null>(null)
 
     const addQuantity = () => {
         setNewPrice(0)
@@ -90,6 +95,17 @@ const ModalPurchase = ({ open, onClose, item }: ModalPurchaseProps) => {
         }
     }
 
+    const fetchUser = async () => {
+        const { data } = await userService.getById(item.user)
+        setUserLocally(data)
+    }
+
+    useEffect(() => {
+        if (isAdminView && item) {
+            fetchUser()
+        }
+    }, [isAdminView, item])
+
     return (
         <Dialog
             {...propsDialog}
@@ -130,79 +146,106 @@ const ModalPurchase = ({ open, onClose, item }: ModalPurchaseProps) => {
                                     </Typography>
                                 </StyledInnerContainer>
 
-                                <StyledPurchaseSection>
-                                    <Typography variant="h6">Nueva compra</Typography>
-                                    <StyledPurchaseInnerSection>
-                                        <>
-                                            <Typography variant="body1">
-                                                Cantidad:
-                                            </Typography>
-                                            <IconButton
-                                                onClick={removeQuantity}
-                                                disabled={localQuantity === 0}
-                                            >
-                                                <RemoveIcon
-                                                    sx={{
-                                                        color:
-                                                            localQuantity === 0
-                                                                ? '#6c757d'
-                                                                : '#0D3B66',
-                                                    }}
-                                                />
-                                            </IconButton>
-                                            <Typography variant="body1">
-                                                {localQuantity}
-                                            </Typography>
-                                            <IconButton onClick={addQuantity}>
-                                                <AddIcon sx={{ color: '#0D3B66' }} />
-                                            </IconButton>
-                                        </>
-                                    </StyledPurchaseInnerSection>
-                                    {localQuantity > 0 && (
-                                        <>
+                                {!isAdminView && (
+                                    <StyledPurchaseSection>
+                                        <Typography variant="h6">Nueva compra</Typography>
+                                        <StyledPurchaseInnerSection>
                                             <>
-                                                <Typography
-                                                    variant="body2"
-                                                    sx={{
-                                                        color: 'grey',
-                                                    }}
-                                                >
-                                                    Usted esta por comprar:{' '}
-                                                    {localQuantity} unidades de este
-                                                    producto.
+                                                <Typography variant="body1">
+                                                    Cantidad:
                                                 </Typography>
-                                                {showConfirmation && (
+                                                <IconButton
+                                                    onClick={removeQuantity}
+                                                    disabled={localQuantity === 0}
+                                                >
+                                                    <RemoveIcon
+                                                        sx={{
+                                                            color:
+                                                                localQuantity === 0
+                                                                    ? '#6c757d'
+                                                                    : '#0D3B66',
+                                                        }}
+                                                    />
+                                                </IconButton>
+                                                <Typography variant="body1">
+                                                    {localQuantity}
+                                                </Typography>
+                                                <IconButton onClick={addQuantity}>
+                                                    <AddIcon sx={{ color: '#0D3B66' }} />
+                                                </IconButton>
+                                            </>
+                                        </StyledPurchaseInnerSection>
+                                        {localQuantity > 0 && (
+                                            <>
+                                                <>
                                                     <Typography
                                                         variant="body2"
                                                         sx={{
-                                                            color: 'red',
-                                                            fontWeight: 'bold',
+                                                            color: 'grey',
                                                         }}
                                                     >
-                                                        Pero el precio ha cambiado, en
-                                                        este momento es de: $ {newPrice}
+                                                        Usted esta por comprar:{' '}
+                                                        {localQuantity} unidades de este
+                                                        producto.
                                                     </Typography>
-                                                )}
+                                                    {showConfirmation && (
+                                                        <Typography
+                                                            variant="body2"
+                                                            sx={{
+                                                                color: 'red',
+                                                                fontWeight: 'bold',
+                                                            }}
+                                                        >
+                                                            Pero el precio ha cambiado, en
+                                                            este momento es de: ${' '}
+                                                            {newPrice}
+                                                        </Typography>
+                                                    )}
+                                                </>
+                                                <StyledPurchaseButtonContainer>
+                                                    {!showConfirmation && (
+                                                        <Button
+                                                            onClick={handleOnClickBuy}
+                                                        >
+                                                            Comprar
+                                                        </Button>
+                                                    )}
+                                                    {showConfirmation && (
+                                                        <Button
+                                                            onClick={
+                                                                handleOnClickConfirmation
+                                                            }
+                                                        >
+                                                            Confirmar compra
+                                                        </Button>
+                                                    )}
+                                                </StyledPurchaseButtonContainer>
                                             </>
-                                            <StyledPurchaseButtonContainer>
-                                                {!showConfirmation && (
-                                                    <Button onClick={handleOnClickBuy}>
-                                                        Comprar
-                                                    </Button>
-                                                )}
-                                                {showConfirmation && (
-                                                    <Button
-                                                        onClick={
-                                                            handleOnClickConfirmation
-                                                        }
-                                                    >
-                                                        Confirmar compra
-                                                    </Button>
-                                                )}
-                                            </StyledPurchaseButtonContainer>
-                                        </>
-                                    )}
-                                </StyledPurchaseSection>
+                                        )}
+                                    </StyledPurchaseSection>
+                                )}
+
+                                {isAdminView && userLocally && (
+                                    <StyledInnerContainer>
+                                        <Typography variant="body1">
+                                            Comprado por:
+                                        </Typography>
+                                        <div
+                                            style={{
+                                                display: 'flex',
+                                                flexDirection: 'column',
+                                                marginTop: 24,
+                                            }}
+                                        >
+                                            <Typography variant="body1">
+                                                {`${userLocally.name} ${userLocally.surname}`}
+                                            </Typography>
+                                            <StyledTextEmail>
+                                                {`(${userLocally.email})`}
+                                            </StyledTextEmail>
+                                        </div>
+                                    </StyledInnerContainer>
+                                )}
                             </StyledInfoContainer>
                         </StyledContainer>
                     )}

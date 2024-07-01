@@ -31,3 +31,37 @@ export const StyledTableContainer = styled(TableContainer)`
         border-bottom: solid 1px #6c757d;
     }
 `
+
+export const StyledTabs = styled.div`
+    display: flex;
+    justify-content: center;
+    border-radius: 8px;
+    background: #faf0ca;
+    padding: 6px 0;
+    gap: 16px;
+`
+
+export const StyledTab = styled(Typography)`
+    font-size: 14px !important;
+    font-style: normal !important;
+    font-weight: 400 !important;
+    line-height: 20x !important;
+
+    cursor: pointer;
+    padding: 4px 8px;
+    border-radius: 8px;
+
+    &.selected {
+        font-weight: bold !important;
+        background: #f4d35e;
+    }
+
+    ${({ theme }) => {
+        return css`
+            @media screen and (max-width: ${theme.breakpoints.xs}) {
+                width: min-content !important;
+                height: min-content !important;
+            }
+        `
+    }}
+`
