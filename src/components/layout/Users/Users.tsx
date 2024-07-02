@@ -9,9 +9,8 @@ const Users = () => {
                 title="Tabla de usuarios"
                 subtitle="Los usuarios pueden editarse o eliminarse utilizando las acciones en la ultima columna."
             />
-            <StyledContainerSection>
-                <UsersTable />
-            </StyledContainerSection>
+
+            <UsersTable />
         </StyledContainerPage>
     )
 }

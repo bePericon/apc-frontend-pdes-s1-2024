@@ -14,7 +14,7 @@ class UserService extends HTTPService {
         )
 
         return data
-    } 
+    }
 
     public async getAll(): Promise<{ data: any; error: any }> {
         const { data } = await this.instance.get(
@@ -42,6 +42,18 @@ class UserService extends HTTPService {
     public async delete(id: string): Promise<{ data: any; error: any }> {
         const { data } = await this.instance.delete(
             `${process.env.NEXT_PUBLIC_API_URL_BASE}/user/delete/${id}`,
+            {
+                withCredentials: true,
+            }
+        )
+
+        return data
+    }
+
+    public async create(body: any): Promise<{ data: any; error: any }> {
+        const { data } = await this.instance.post(
+            `${process.env.NEXT_PUBLIC_API_URL_BASE}/user`,
+            body,
             {
                 withCredentials: true,
             }
