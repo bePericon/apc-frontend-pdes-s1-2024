@@ -22,8 +22,9 @@ const Navbar = () => {
             {isUserAdmin && (
                 <>
                     <ButtonNav href={`/apc/admin/reportes`} text={'Reportes'} />
+                    <ButtonNav href={`/apc/compras`} text={'Compras'} />
+                    <ButtonNav href={`/apc/favoritos`} text={'Favoritos'} />
                     <ButtonNav href={`/apc/admin/usuarios`} text={'Usuarios'} />
-                    {/* <ButtonNav href={`/apc/admin/favoritos`} text={'Favoritos'} /> */}
                 </>
             )}
         </StyledNavbarContainer>

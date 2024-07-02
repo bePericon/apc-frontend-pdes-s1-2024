@@ -9,13 +9,18 @@ import { Typography } from '@mui/material'
 import TitlePage from '@/components/common/TitlePage/TitlePage'
 import CardProductWithModal from '@/components/common/CardProductWithModal/CardProductWithModal'
 import ModalFavorite from '@/components/common/ModalFavorite/ModalFavorite'
+import { isAdmin } from '@/utils/roles'
 
 const Favorites = () => {
     const user = useSelector((state: RootState) => state.auth.user)
     const [favorites, setFavorites] = useState<Product[]>([])
 
+    const isAdminUser = isAdmin(user?.roles)
+
     const fetching = async () => {
-        const { data } = await FavoriteService.getFavoritesByUserId(user?._id as string)
+        const { data } = isAdminUser
+            ? await FavoriteService.getAll()
+            : await FavoriteService.getFavoritesByUserId(user?._id as string)
         setFavorites(data)
     }
 
@@ -26,8 +31,12 @@ const Favorites = () => {
     return (
         <StyledFavoritesContainer>
             <TitlePage
-                title="Tus productos favoritos"
-                subtitle="Haciendo click en el producto podes dejar un comentario y ademas cambiar su valoración."
+                title={isAdminUser ? 'Todos los favoritos' : 'Tus productos favoritos'}
+                subtitle={
+                    isAdminUser
+                        ? 'Haciendo click en el producto podes ver de que usuario es favorito, su comentario y su valoración.'
+                        : 'Haciendo click en el producto podes dejar un comentario y ademas cambiar su valoración.'
+                }
             />
             <StyledContainerSection withColor expandFullWidthMobile>
                 <StyledColumnItems>
@@ -45,6 +54,7 @@ const Favorites = () => {
                                     item={item}
                                     open={open}
                                     onClose={handleOnClose}
+                                    isAdminView={isAdminUser}
                                 />
                             )}
                         />

@@ -31,3 +31,10 @@ export const StyledTableContainer = styled(TableContainer)`
         border-bottom: solid 1px #6c757d;
     }
 `
+
+export const StyledButtonContainer = styled.div`
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin: 0 48px 8px;
+`

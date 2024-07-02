@@ -4,23 +4,22 @@ import TableBody from '@mui/material/TableBody'
 import TableCell from '@mui/material/TableCell'
 import TableHead from '@mui/material/TableHead'
 import TableRow from '@mui/material/TableRow'
-import FavoriteService from '@/service/favorite.service'
-import { FavoriteReportItem } from '@/types/report.types'
+import PurchaseService from '@/service/purchase.service'
+import { BestSellingReportItem } from '@/types/report.types'
 import Image from 'next/image'
-import StarIcon from '@mui/icons-material/Star'
 import {
     StyledTableCellText,
     StyledTableContainer,
     StyledTableHeadText,
-} from './Reports.styled'
+} from '../../Reports.styled'
 import { useWidth } from '@/hook/useWidth'
 
-const TopFiveReportTable = () => {
-    const [report, setReport] = useState<FavoriteReportItem[]>([])
+const TopFiveBestSellingReportTable = () => {
+    const [report, setReport] = useState<BestSellingReportItem[]>([])
     const { isMobile } = useWidth()
 
     const fetchReport = async () => {
-        const { data } = await FavoriteService.getReportTopFive()
+        const { data } = await PurchaseService.getReportTopFiveBestSelling()
         setReport(data)
     }
 
@@ -40,14 +39,14 @@ const TopFiveReportTable = () => {
                             <StyledTableHeadText>Imagen</StyledTableHeadText>
                         </TableCell>
                         <TableCell align="center">
-                            <StyledTableHeadText>Calificación</StyledTableHeadText>
+                            <StyledTableHeadText>Cantidad vendidos</StyledTableHeadText>
                         </TableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>
                     {report.map((reportItem) => (
                         <TableRow
-                            key={reportItem._id}
+                            key={reportItem.itemId}
                             sx={{
                                 '&:last-child td, &:last-child th': {
                                     border: 0,
@@ -70,19 +69,9 @@ const TopFiveReportTable = () => {
                                 />
                             </TableCell>
                             <TableCell align="center">
-                                <div
-                                    style={{
-                                        display: 'flex',
-                                        gap: 8,
-                                        justifyContent: 'center',
-                                        alignItems: 'center',
-                                    }}
-                                >
-                                    <StarIcon fontSize="small" />
-                                    <StyledTableCellText style={{ marginTop: 4 }}>
-                                        {reportItem.averageRating}
-                                    </StyledTableCellText>
-                                </div>
+                                <StyledTableCellText style={{ marginTop: 4 }}>
+                                    {reportItem.count}
+                                </StyledTableCellText>
                             </TableCell>
                         </TableRow>
                     ))}
@@ -92,4 +81,4 @@ const TopFiveReportTable = () => {
     )
 }
 
-export default TopFiveReportTable
+export default TopFiveBestSellingReportTable

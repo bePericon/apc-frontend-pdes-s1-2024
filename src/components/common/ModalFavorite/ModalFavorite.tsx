@@ -21,11 +21,15 @@ import {
     StyledTypographyTitle,
 } from '../CardProductWithModal/Modal.styled'
 import CardProductSkeleton from '../CardProductWithModal/CardProductSkeleton'
+import { User } from '@/types/apc.types'
+import userService from '@/service/user.service'
+import { StyledTextEmail } from './ModalFavorite.styled'
 
 interface ModalFavoriteProps {
     open: boolean
     onClose: () => void
     item: Product
+    isAdminView: boolean
 }
 
 const Transition = forwardRef(function Transition(
@@ -37,9 +41,10 @@ const Transition = forwardRef(function Transition(
     return <Slide direction="up" ref={ref} {...props} />
 })
 
-const ModalFavorite = ({ open, onClose, item }: ModalFavoriteProps) => {
+const ModalFavorite = ({ open, onClose, item, isAdminView }: ModalFavoriteProps) => {
     const { isMobile } = useWidth()
     const [rating, setRating] = useState<number | undefined>(undefined)
+    const [userLocally, setUserLocally] = useState<User | null>(null)
 
     const handleOnClickFavorite = async () => {
         if (item.favoriteId) await FavoriteService.delete(item.favoriteId as string)
@@ -51,11 +56,20 @@ const ModalFavorite = ({ open, onClose, item }: ModalFavoriteProps) => {
         setRating(newValue)
     }
 
+    const fetchUser = async () => {
+        const { data } = await userService.getById(item.user)
+        setUserLocally(data)
+    }
+
     useEffect(() => {
         if (item.favoriteId) {
             setRating(item.rating)
         }
-    }, [item])
+
+        if (isAdminView && item) {
+            fetchUser()
+        }
+    }, [isAdminView, item])
 
     const propsDialog: any = isMobile
         ? { fullScreen: true, TransitionComponent: Transition }
@@ -85,20 +99,65 @@ const ModalFavorite = ({ open, onClose, item }: ModalFavoriteProps) => {
                                 <StyledTypographyTitle>
                                     {item.hydrated?.title}
                                 </StyledTypographyTitle>
-                                <HoverRating
-                                    ratingValue={rating as number}
-                                    onChange={handleOnChange}
-                                />
-                                <StyledInnerContainer>
-                                    <Typography variant="h5">
-                                        $ {numberWithCommas(item.hydrated.price)}
-                                    </Typography>
-                                    <HoverFavorite
-                                        isFavorite={!!item.favoriteId}
-                                        onClickFavorite={handleOnClickFavorite}
-                                    />
-                                </StyledInnerContainer>
-                                <CommentSection item={item} />
+
+                                {!isAdminView && (
+                                    <>
+                                        <HoverRating
+                                            ratingValue={rating as number}
+                                            onChange={handleOnChange}
+                                        />
+                                        <StyledInnerContainer>
+                                            <Typography variant="h5">
+                                                $ {numberWithCommas(item.hydrated.price)}
+                                            </Typography>
+                                            <HoverFavorite
+                                                isFavorite={!!item.favoriteId}
+                                                onClickFavorite={handleOnClickFavorite}
+                                            />
+                                        </StyledInnerContainer>
+                                        <CommentSection item={item} />
+                                    </>
+                                )}
+
+                                {isAdminView && userLocally && (
+                                    <>
+                                        <HoverRating
+                                            ratingValue={rating as number}
+                                            onChange={handleOnChange}
+                                            disabled={isAdminView}
+                                        />
+                                        <StyledInnerContainer>
+                                            <Typography variant="h5">
+                                                $ {numberWithCommas(item.hydrated.price)}
+                                            </Typography>
+                                            <HoverFavorite
+                                                isFavorite={!!item.favoriteId}
+                                                onClickFavorite={handleOnClickFavorite}
+                                                disabled={isAdminView}
+                                            />
+                                        </StyledInnerContainer>
+                                        <StyledInnerContainer>
+                                            <Typography variant="body1">
+                                                Favorito de:
+                                            </Typography>
+                                            <div
+                                                style={{
+                                                    display: 'flex',
+                                                    flexDirection: 'column',
+                                                    marginTop: 24,
+                                                }}
+                                            >
+                                                <Typography variant="body1">
+                                                    {`${userLocally.name} ${userLocally.surname}`}
+                                                </Typography>
+                                                <StyledTextEmail>
+                                                    {`(${userLocally.email})`}
+                                                </StyledTextEmail>
+                                            </div>
+                                        </StyledInnerContainer>
+                                        <CommentSection item={item} disabled={isAdminView}/>
+                                    </>
+                                )}
                             </StyledInfoContainer>
                         </StyledContainer>
                     )}
