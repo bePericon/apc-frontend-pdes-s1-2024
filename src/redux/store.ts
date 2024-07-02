@@ -4,6 +4,7 @@ import snackbarSlice from './slice/snackbarSlice'
 import loaderSlice from './slice/loaderSlice'
 import { persistStore, persistReducer } from 'redux-persist'
 import storage from 'redux-persist/lib/storage' // defaults to localStorage for web
+import searchSlice from './slice/searchSlice'
  
 const persistConfig = {
   key: 'root',
@@ -15,6 +16,7 @@ const reducer = combineReducers({
     auth: authSlice,
     snackbar: snackbarSlice,
     loader: loaderSlice,
+    search: searchSlice
 })
 
 const persistedReducer = persistReducer(persistConfig, reducer)

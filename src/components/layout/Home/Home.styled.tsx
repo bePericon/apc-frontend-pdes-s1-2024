@@ -70,3 +70,21 @@ export const StyledColumnItems = styled.div`
         `
     }}
 `
+
+export const StyledFiltersHeader = styled.div`
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 48px;
+`
+
+export const StyledFiltersContainer = styled.div`
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: flex-start;
+    padding: 16px 48px;
+`

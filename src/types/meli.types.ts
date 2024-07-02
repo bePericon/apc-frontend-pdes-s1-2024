@@ -36,3 +36,21 @@ export interface Picture {
     size: string
     max_size: string
 }
+
+export interface Filter {
+    id: string
+    name: string
+    type: string
+    values: ValueFilter[]
+}
+
+export interface ValueFilter {
+    id: string
+    name: string
+    results: number
+}
+
+export interface IFiltersSearchState {
+    price: string | undefined
+    ITEM_CONDITION: string | undefined
+}
