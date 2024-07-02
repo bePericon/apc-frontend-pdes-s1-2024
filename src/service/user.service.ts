@@ -39,6 +39,17 @@ class UserService extends HTTPService {
         return data
     }
 
+    public async delete(id: string): Promise<{ data: any; error: any }> {
+        const { data } = await this.instance.delete(
+            `${process.env.NEXT_PUBLIC_API_URL_BASE}/user/delete/${id}`,
+            {
+                withCredentials: true,
+            }
+        )
+
+        return data
+    }
+
     public async getReportTopFiveMustPurchases(): Promise<{ data: any; error: any }> {
         const { data } = await this.instance.get(
             `${process.env.NEXT_PUBLIC_API_URL_BASE}/user/report/top-five-must-purchases`,

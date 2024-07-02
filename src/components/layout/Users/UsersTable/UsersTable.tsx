@@ -16,6 +16,7 @@ import {
     StyledTableContainer,
     StyledTableHeadText,
 } from './UserTable.styled'
+import ModalDeleteUser from './ModalDeleteUser/ModalDeleteUser'
 
 const UsersTable = () => {
     const [users, setUsers] = useState<User[]>([])
@@ -23,9 +24,17 @@ const UsersTable = () => {
     const [openEditUser, setOpenEditUser] = useState(false)
     const [selectedUser, setSelectedUser] = useState<User | null>(null)
 
+    const [openDeleteUser, setOpenDeleteUser] = useState(false)
+
     const fetchUsers = async () => {
         const allUsers = await UserService.getAll()
         setUsers(allUsers.data)
+    }
+
+    const handleDeleteUser = async () => {
+        await UserService.delete(selectedUser?._id as string)
+        setOpenDeleteUser(false)
+        fetchUsers()
     }
 
     useEffect(() => {
@@ -109,7 +118,13 @@ const UsersTable = () => {
                                     >
                                         <EditIcon sx={{ color: '#EE964B' }} />
                                     </IconButton>
-                                    <IconButton aria-label="delete" onClick={() => {}}>
+                                    <IconButton
+                                        aria-label="delete"
+                                        onClick={() => {
+                                            setSelectedUser(user)
+                                            setOpenDeleteUser(true)
+                                        }}
+                                    >
                                         <DeleteIcon sx={{ color: '#F95738' }} />
                                     </IconButton>
                                 </TableCell>
@@ -126,6 +141,11 @@ const UsersTable = () => {
                 }}
                 open={openEditUser}
                 user={selectedUser}
+            />
+            <ModalDeleteUser
+                open={openDeleteUser}
+                onConfirm={handleDeleteUser}
+                onClose={() => setOpenDeleteUser(false)}
             />
         </>
     )
