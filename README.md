@@ -34,34 +34,13 @@ Using latest versions for all technologies (March 2024)
 
 - Frontend: http://localhost:3000
 
-### SonarQube
-
-#### Steps to run locally
-
-1. In folder **docker/sonar** then run ```docker compose up -d --force-recreate``` to up docker container.
-
-2. Run ```sh run-sonar-scanner.sh``` to start scanner code in root folder  .
-
-#### Enter SonarQube locally
-
-- Access in browser: localhost:9000
-  - User: admin 
-  - Password: pass (first time, after you need change it)
-
-#### Solved to possible problems on Windows system
-
-- Change on **run-sonar-scanner.sh** file line:
-```-v ".:/usr/src" \```
-
-- to line:
-```-v "/$(pwd).:/usr/src" \```
-
 
 ## Prod environment
 
 Using [Vercel](https://vercel.com/) to deploy app
 
 - https://apc-frontend-pdes-s1-2024.vercel.app/
+
 
 ## Using app
 
