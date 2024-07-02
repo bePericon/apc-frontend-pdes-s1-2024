@@ -16,10 +16,10 @@ import {
     OutlinedInput,
 } from '@mui/material'
 import { Visibility, VisibilityOff } from '@mui/icons-material'
-import { StyledFormContainer } from './DialogUser.styled'
+import { StyledFormContainer } from './ModelUpdateUser.styled'
 import UserService from '../../../../../service/user.service'
 
-interface DialogItemListProps {
+interface ModelUpdateUserProps {
     open: boolean
     onClose: (needUpdate?: boolean) => void
     user: User | null
@@ -33,7 +33,7 @@ interface InputsUserEdit {
     password: string
 }
 
-const DialogUser = ({ open, onClose, user }: DialogItemListProps) => {
+const ModelUpdateUser = ({ open, onClose, user }: ModelUpdateUserProps) => {
     const {
         register,
         handleSubmit,
@@ -195,4 +195,4 @@ const DialogUser = ({ open, onClose, user }: DialogItemListProps) => {
     )
 }
 
-export default DialogUser
+export default ModelUpdateUser

@@ -31,7 +31,7 @@ export interface User {
     password: string
     roles: Role[]
     favorites: Favorite[]
-    creationDate: string
+    createdDate: string
 }
 
 export enum RoleName {
