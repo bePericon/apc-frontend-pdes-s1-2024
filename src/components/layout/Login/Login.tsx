@@ -44,13 +44,13 @@ const Login = () => {
                             className={currentTab === TabLogin.LOGIN ? 'selected' : ''}
                             onClick={() => setCurrentTab(TabLogin.LOGIN)}
                         >
-                            INICIAR SESIÓN
+                            LOGIN
                         </StyledTab>
                         <StyledTab
                             className={currentTab === TabLogin.SINGUP ? 'selected' : ''}
                             onClick={() => setCurrentTab(TabLogin.SINGUP)}
                         >
-                            REGISTRARSE
+                            CREAR USUARIO
                         </StyledTab>
                     </StyledTabs>
 
